@@ -9,9 +9,9 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.auth')] class extends Component
-{
-    public string $name = '';
+new #[Layout('layouts.auth')] class extends Component {
+    public string $first_name = '';
+    public string $last_name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -22,8 +22,9 @@ new #[Layout('layouts.auth')] class extends Component
     public function register(): void
     {
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -50,31 +51,39 @@ new #[Layout('layouts.auth')] class extends Component
                     </div>
                     <form wire:submit="register">
                         <div class="mb-3">
-                            <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input wire:model="name" id="name" type="text" name="name" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <x-input-label for="first_name" :value="__('First Name')"/>
+                            <x-text-input wire:model="first_name" id="first_name" type="text" name="first_name" required autofocus
+                                          autocomplete="first_name"/>
+                            <x-input-error :messages="$errors->get('first_name')" class="mt-2"/>
+                        </div>
+                        <div class="mb-3">
+                            <x-input-label for="last_name" :value="__('Last Name')"/>
+                            <x-text-input wire:model="last_name" id="last_name" type="text" name="last_name" required autofocus
+                                          autocomplete="last_name"/>
+                            <x-input-error :messages="$errors->get('last_name')" class="mt-2"/>
                         </div>
 
                         <div class="mb-3">
-                            <x-input-label for="email" :value="__('Email')" />
+                            <x-input-label for="email" :value="__('Email')"/>
                             <x-text-input wire:model="email" id="email"
-                                          type="email" name="email" required autocomplete="email" />
+                                          type="email" name="email" required autocomplete="email"/>
                             <x-input-error :messages="$errors->get('email')"/>
                         </div>
 
                         <div class="mb-3">
-                            <x-input-label for="password" :value="__('Password')" />
+                            <x-input-label for="password" :value="__('Password')"/>
 
                             <x-text-input wire:model="password" id="password" type="password" name="password"
-                                          required autocomplete="new-password" />
+                                          required autocomplete="new-password"/>
                             <x-input-error :messages="$errors->get('password')"/>
                         </div>
 
                         <div class="mb-3">
-                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-                            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
+                            <x-input-label for="password_confirmation" :value="__('Confirm Password')"/>
+                            <x-text-input wire:model="password_confirmation" id="password_confirmation"
+                                          class="block mt-1 w-full"
                                           type="password"
-                                          name="password_confirmation" required autocomplete="new-password" />
+                                          name="password_confirmation" required autocomplete="new-password"/>
                             <x-input-error :messages="$errors->get('password_confirmation')"/>
                         </div>
                         <div class="mt-10">

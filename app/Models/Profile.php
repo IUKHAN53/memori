@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Matrix\Decomposition\QR;
 
 class Profile extends Model
@@ -19,6 +20,7 @@ class Profile extends Model
         'picture',
         'city',
         'state',
+        'obituary_link',
         'bio',
         'heading_text',
         'include_heading_text',
@@ -48,6 +50,16 @@ class Profile extends Model
     public function assignedQr($value)
     {
         return $this->hasOne(Qr::class)->where('assigned_to', $value);
+    }
+
+    public function qr_code()
+    {
+        return $this->hasOne(QrCode::class);
+    }
+
+    public function getProfilePictureAttribute()
+    {
+        return $this->picture ? Storage::url($this->picture) : 'https://ui-avatars.com/api/?name=' . urlencode($this->full_name) . '&color=7F9CF5&background=EBF4FF';
     }
 
 }

@@ -15,8 +15,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'Admin',
+            'first_name' => 'Admin',
+            'last_name' => 'Test',
             'email' => 'admin@memori.com',
+            'password' => bcrypt('memori@123'), // 'password' is the default password
             'role' => 'admin',
         ]);
     }

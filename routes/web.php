@@ -14,15 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (){
-    return redirect()->route('login');
-})->name('home');
+    return redirect()->route('home');
+});
 
-Route::get('dashboard', function (){
-    return redirect()->route('admin.dashboard');
-})->name('dashboard');
-//Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+Route::view('home', 'home')->middleware(['auth', 'verified'])->name('home');
 
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
+
+Route::view('/qr-assignment/{identifier}', 'qr-assignment')->name('qr-assignment');
 
 Route::prefix('admin')->middleware(['auth'])->as('admin.')->group(function () {
     Route::view('dashboard', 'admin.dashboard')->name('dashboard');
@@ -30,7 +29,6 @@ Route::prefix('admin')->middleware(['auth'])->as('admin.')->group(function () {
 
     Route::resource('users', \App\Http\Controllers\Admin\UsersController::class);
     Route::resource('profiles', \App\Http\Controllers\Admin\ProfilesController::class);
-//    Route::view('profiles', 'admin.profiles.index')->name('profiles.index');
     Route::view('settings', 'admin.settings.index')->name('settings.index');
 });
 

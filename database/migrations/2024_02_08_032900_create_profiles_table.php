@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->string('obituary_link')->nullable();
             $table->text('bio')->nullable();
             $table->text('heading_text')->nullable();
             $table->boolean('include_heading_text')->default(true);
