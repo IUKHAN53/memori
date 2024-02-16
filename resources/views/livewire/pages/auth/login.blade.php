@@ -20,12 +20,13 @@ new #[Layout('layouts.auth')] class extends Component {
 
         Session::regenerate();
 
-        if(auth()->user()->role === 'admin'){
+        if (auth()->user()->role == 'admin') {
             $this->redirect(route('admin.dashboard'));
+        } else {
+            $this->redirect(
+                session('url.intended', RouteServiceProvider::HOME),
+            );
         }
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-        );
     }
 }; ?>
 <x-slot:title>
@@ -41,15 +42,18 @@ new #[Layout('layouts.auth')] class extends Component {
                     </div>
                     <form wire:submit="login">
                         <div class="mb-3">
-                            <x-input-label for="email" class="inline-block mb-2 text-base font-medium" :value="__('Email')" />
+                            <x-input-label for="email" class="inline-block mb-2 text-base font-medium"
+                                           :value="__('Email')"/>
                             <x-text-input wire:model="form.email"
-                                          type="email"  required autofocus autocomplete="email" placeholder="Enter email"/>
+                                          type="email" required autofocus autocomplete="email"
+                                          placeholder="Enter email"/>
                             <x-input-error :messages="$errors->get('email')"/>
                         </div>
                         <div class="mb-3">
-                            <x-input-label for="password" class="inline-block mb-2 text-base font-medium" :value="__('Password')" />
+                            <x-input-label for="password" class="inline-block mb-2 text-base font-medium"
+                                           :value="__('Password')"/>
                             <x-text-input wire:model="form.password" id="password"
-                                          type="password"  required placeholder="Enter Password"/>
+                                          type="password" required placeholder="Enter Password"/>
                             <x-input-error :messages="$errors->get('password')"/>
                         </div>
                         <div>
@@ -69,14 +73,16 @@ new #[Layout('layouts.auth')] class extends Component {
                             </button>
                         </div>
                         <div class="mt-5 text-center">
-                            <a wire:navigate class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
+                            <a wire:navigate
+                               class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                               href="{{ route('password.request') }}" wire:navigate>
                                 {{ __('Forgot your password?') }}
                             </a>
                         </div>
                         <div class="mt-10 text-center">
                             <p class="mb-0 text-slate-500 dark:text-zink-200">Don't have an account ? <a
-                                    href="{{route('register')}}"  wire:navigate
-                                    class="font-semibold underline transition-all duration-150 ease-linear text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500">
+                                        href="{{route('register')}}" wire:navigate
+                                        class="font-semibold underline transition-all duration-150 ease-linear text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500">
                                     SignUp</a></p>
                         </div>
                     </form>
