@@ -14,7 +14,6 @@
         "livewire/volt": "^1.0",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "1.0",
-        "rappasoft/laravel-livewire-tables": "^3.2",
         "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {

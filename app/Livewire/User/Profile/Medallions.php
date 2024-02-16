@@ -5,13 +5,21 @@ namespace App\Livewire\User\Profile;
 use App\Livewire\Forms\ProfileForm;
 use App\Models\Profile;
 use App\Models\QrCode;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Medallions extends Component
 {
+    use WithFileUploads;
+
     public bool $list_screen = true;
     public bool $add_screen = false;
     public bool $editing = false;
+
+    public $picture;
+    public $profile_picture = null;
 
     public ProfileForm $form;
 
@@ -21,11 +29,15 @@ class Medallions extends Component
         $this->add_screen = false;
     }
 
-    public function showAddScreen(Profile $profile = null)
+    public function showAddScreen($profile = null)
     {
         if ($profile) {
-            $this->form->setProfile($profile);
+            $existing = Profile::find($profile);
+            $this->form->setProfile($existing);
+            $this->profile_picture = $existing->profile_picture;
             $this->editing = true;
+        }else{
+            $this->form->reset();
         }
         $this->list_screen = false;
         $this->add_screen = true;
@@ -39,12 +51,18 @@ class Medallions extends Component
 
     public function saveProfile()
     {
+        if ($this->picture) {
+            $filename = Str::slug($this->picture->getClientOriginalName()) . '-' . time(). '.' . $this->picture->getClientOriginalExtension();
+            $file_path = $this->picture->storeAs('profile_picture', $filename, 'public');
+            $this->form->picture = $file_path;
+        }
         if ($this->editing) {
             $this->form->update();
             $this->editing = false;
         } else {
             $this->form->store();
         }
+        $this->reset('picture', 'profile_picture');
         $this->showListScreen();
     }
 

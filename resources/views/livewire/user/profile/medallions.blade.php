@@ -203,9 +203,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
                 <div>
                     <label for="profile_picture">Profile picture</label>
-                    <input type="file" id="profile_picture" wire:model="form.profile_picture"
+                    <input type="file" id="profile_picture" wire:model="picture"
                            class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500"
                            placeholder="Enter your name">
+                </div>
+                <div>
+                    @if ($picture && $picture->temporaryUrl())
+                        <img class="rounded-full w-20 h-20 border-2 border-custom-400" src="{{ $picture->temporaryUrl() }}">
+                    @elseif($profile_picture !== null)
+                        <img class="rounded-full w-20 h-20 border-2 border-custom-400" src="{{ $profile_picture }}">
+                    @endif
                 </div>
             </div>
             <h5 style="font-weight: normal">Headline text</h5>

