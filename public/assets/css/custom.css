@@ -1,0 +1,48 @@
+/* ImageCropper */
+.tf-cropper-root {
+    @apply bg-white border-2 border-dashed border-gray-300 mx-auto p-4 relative rounded w-full;
+}
+.tf-cropper-drop-zone {
+    @apply cursor-pointer font-bold text-center text-gray-500 text-xs tracking-wide uppercase;
+}
+.tf-cropper-file-info {
+    @apply font-extralight text-gray-500 text-xs;
+}
+.tf-cropper-icon {
+    @apply mx-auto h-12 w-12 text-gray-400;
+}
+.tf-cropper-modal-bg {
+    @apply fixed inset-0 h-screen w-screen p-2 sm:p-10 md:p-20 bg-gray-800 bg-opacity-75 z-50;
+}
+.tf-cropper-modal {
+    @apply bg-white rounded w-full h-full flex justify-center items-center isolate;
+    z-index: 5;
+}
+.tf-cropper-btns-root {
+    @apply absolute inset-0 isolate;
+    z-index: 5; /* compatible with CKEditor overlay */
+}
+.tf-cropper-btns-wrapper {
+    @apply flex gap-2 h-full w-full items-center justify-center;
+}
+.tf-cropper-edit-btn-wrapper {
+    @apply z-10 absolute inset-0;
+}
+.tf-cropper-thumb {
+    @apply w-full h-full;
+}
+.tf-cropper-upload {
+    @apply tf-bg-primary flex font-medium items-center mt-2 mx-auto outline-none px-2 rounded-sm text-center text-white text-xs;
+}
+.tf-cropper-delete {
+    @apply tf-bg-danger text-white p-2 rounded;
+}
+.tf-cropper-save {
+    @apply tf-bg-success text-white p-2 rounded;
+}
+.tf-cropper-swap {
+    @apply tf-bg-danger bg-opacity-75 hover:bg-opacity-100 text-white p-1 text-xs rounded;
+}
+.tf-cropper-edit {
+    @apply tf-bg-success bg-opacity-75 hover:bg-opacity-100 text-white p-1 text-xs rounded;
+}

@@ -9,8 +9,9 @@
                             <div class="relative inline-block">
                                 <img
                                     src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352156-stock-illustration-default-placeholder-profile-icon.jpg"
-                                    id="avatarImage" class="h-24 w-24 rounded-full object-cover" alt="Avatar"/>
-                                <label for="imageUpload"
+                                    class="h-24 w-24 rounded-full object-cover" alt="Avatar"/>
+                                <label for="imageUpload" x-data=""
+                                       x-on:click.prevent="$dispatch('open-modal', 'update-profile-image')"
                                        class="absolute bottom-0 right-0 bg-blue-600 rounded-full p-1 cursor-pointer bg-white border shadow">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +26,6 @@
                                             stroke="currentColor" stroke-width="1.5"/>
                                     </svg>
                                 </label>
-                                <input type="file" id="imageUpload" class="hidden" onchange="loadFile(event)"/>
                             </div>
                             <div>
                                 <div class="font-medium text-lg">{{auth()->user()->name}}</div>
@@ -94,4 +94,12 @@
             </div>
         </div>
     </section>
+    <x-modal name="update-profile-image" :show="$errors->isNotEmpty()" focusable max>
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('Change Profile Picture') }}
+            </h2>
+            <div >
+                <livewire:utils.image-cropper field="image"/>
+            </div>
+    </x-modal>
 </div>
