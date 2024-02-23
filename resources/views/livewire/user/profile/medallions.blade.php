@@ -42,10 +42,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($profiles as $profile)
+                @forelse($profiles as $profile)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$profile->full_name}}
+                            <a href="{{route('profile.show',['id' => $profile->id])}}"
+                            class="text-custom-500">
+                                {{$profile->full_name}}
+                            </a>
                         </th>
                         <td class="px-6 py-4">
                             {{$profile->relationship}}
@@ -107,7 +110,16 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td class="px-6 py-4" colspan="5">
+                            <div class="flex items
+                            -center justify-center w-full h-96">
+                                <p class="text-gray-500">No Profiles found</p>
+                            </div>
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
