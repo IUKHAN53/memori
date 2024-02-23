@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Matrix\Decomposition\QR;
+use Usamamuneerchaudhary\Commentify\Traits\Commentable;
 
 class Profile extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'first_name',
         'middle_name',
@@ -62,4 +61,23 @@ class Profile extends Model
         return $this->picture ? Storage::url($this->picture) : 'https://ui-avatars.com/api/?name=' . urlencode($this->full_name) . '&color=7F9CF5&background=EBF4FF';
     }
 
+    public function getAgeAttribute()
+    {
+        return $this->date_of_death->diffInYears($this->date_of_birth);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(ProfileImages::class);
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(ProfileVideos::class);
+    }
+
+    public function tributes()
+    {
+        return $this->hasMany(ProfileTributes::class);
+    }
 }

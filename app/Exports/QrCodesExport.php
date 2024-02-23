@@ -20,7 +20,8 @@ class QrCodesExport implements FromQuery, WithHeadings, WithMapping
         return [
             $qrCode->identifier,
             $qrCode->secret_phrase,
-            url('/').Storage::url($qrCode->path),
+            route('qr-code.verify', ['identifier' => $qrCode->identifier]),
+//            url('/').Storage::url($qrCode->path),
             $qrCode->is_assigned ? 'Yes' : 'No'
         ];
     }

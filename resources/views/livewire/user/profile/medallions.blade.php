@@ -57,9 +57,15 @@
                         <td class="px-6 py-4">
                             @if($profile->qr_code)
                                 <img src="{{$profile->qr_code->image}}" alt="{{$profile->full_name}}"
-                                     class="w-10 h-10 rounded-full">
+                                     class="w-12 h-12">
+                            @elseif(auth()->user()->hasQRCodes())
+                                <a href="#" wire:click="generateQRCode({{$profile->id}})">Generate QR Code</a>
                             @else
-                                <a href="#" target="_blank">Buy QR Codes</a>
+                                <a href="#" wire:click="assignQrCode({{$profile->id}})"
+                                   class="text-custom-500"
+                                   wire:confirm.prompt="Are you sure? This action is irreversable. \n\nType ASSIGN to confirm|ASSIGN">
+                                    Assign Available Qr Code
+                                </a>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-center">

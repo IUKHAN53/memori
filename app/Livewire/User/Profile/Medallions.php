@@ -5,6 +5,7 @@ namespace App\Livewire\User\Profile;
 use App\Livewire\Forms\ProfileForm;
 use App\Models\Profile;
 use App\Models\QrCode;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -36,7 +37,7 @@ class Medallions extends Component
             $this->form->setProfile($existing);
             $this->profile_picture = $existing->profile_picture;
             $this->editing = true;
-        }else{
+        } else {
             $this->form->reset();
         }
         $this->list_screen = false;
@@ -52,7 +53,7 @@ class Medallions extends Component
     public function saveProfile()
     {
         if ($this->picture) {
-            $filename = Str::slug($this->picture->getClientOriginalName()) . '-' . time(). '.' . $this->picture->getClientOriginalExtension();
+            $filename = Str::slug($this->picture->getClientOriginalName()) . '-' . time() . '.' . $this->picture->getClientOriginalExtension();
             $file_path = $this->picture->storeAs('profile_picture', $filename, 'public');
             $this->form->picture = $file_path;
         }
@@ -72,5 +73,16 @@ class Medallions extends Component
         $profile->delete();
     }
 
-
+    /**
+     * @throws \Exception
+     */
+    public function assignQrCode(Profile $profile)
+    {
+        $user_qr_code = auth()->user()->QrCodeUsers->first();
+        if ($user_qr_code) {
+            $qr_code = $user_qr_code->qrCode;
+            $qr_code->assignTo($profile);
+            $user_qr_code->delete();
+        }
+    }
 }
