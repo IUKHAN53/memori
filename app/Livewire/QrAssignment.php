@@ -85,15 +85,20 @@ class QrAssignment extends Component
     public function verifyAndAdd()
     {
         $qrCode = QrCode::where('identifier', $this->identifier)->first();
-        if ($this->secret_phrase === $qrCode->secret_phrase) {
-            QrCodeUser::query()->create([
-                'qr_code_id' => $qrCode->id,
-                'user_id' => $this->user->id,
-            ]);
-            return redirect()->route('home');
-        }else{
-            $this->addError('secret_phrase', 'Invalid secret phrase');
-        }
+//        if ($this->secret_phrase === $qrCode->secret_phrase) {
+//            QrCodeUser::query()->create([
+//                'qr_code_id' => $qrCode->id,
+//                'user_id' => $this->user->id,
+//            ]);
+//            return redirect()->route('home');
+//        }else{
+//            $this->addError('secret_phrase', 'Invalid secret phrase');
+//        }
+        QrCodeUser::query()->create([
+            'qr_code_id' => $qrCode->id,
+            'user_id' => $this->user->id,
+        ]);
+        return redirect()->route('home');
     }
 
 }

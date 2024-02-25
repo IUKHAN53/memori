@@ -39,19 +39,19 @@ new #[Layout('layouts.auth')] class extends Component {
 }; ?>
 
 <x-slot:title>
-    Login
+    {{ __('all.sign_up') }}
     </x-slot>
     <div class="mb-0 border-none shadow-none xl:w-2/3 card bg-white/70 dark:bg-zink-500/70">
         <div class="grid grid-cols-1 gap-0 lg:grid-cols-12">
             <div class="lg:col-span-5">
                 <div class="!px-12 !py-12 card-body">
                     <div class="text-center">
-                        <h4 class="mb-2 text-purple-500 dark:text-purple-500">Welcome!</h4>
-                        <p class="text-slate-500 dark:text-zink-200">Register to start using Memori.</p>
+                        <h4 class="mb-2 text-purple-500 dark:text-purple-500">{{ __('all.welcome') }}</h4>
+                        <p class="text-slate-500 dark:text-zink-200">{{ __('all.register_to_start') }}</p>
                     </div>
                     <form wire:submit="register">
                         <div class="mb-3">
-                            <x-input-label for="first_name" :value="__('First Name')"/>
+                            <x-input-label for="first_name" :value="__('all.first_name')"/>
                             <x-text-input wire:model="first_name" id="first_name" type="text" name="first_name" required autofocus
                                           autocomplete="first_name"/>
                             <x-input-error :messages="$errors->get('first_name')" class="mt-2"/>
@@ -79,7 +79,7 @@ new #[Layout('layouts.auth')] class extends Component {
                         </div>
 
                         <div class="mb-3">
-                            <x-input-label for="password_confirmation" :value="__('Confirm Password')"/>
+                            <x-input-label for="password_confirmation" :value="__('all.confirm_password')"/>
                             <x-text-input wire:model="password_confirmation" id="password_confirmation"
                                           class="block mt-1 w-full"
                                           type="password"
@@ -89,15 +89,16 @@ new #[Layout('layouts.auth')] class extends Component {
                         <div class="mt-10">
                             <button type="submit"
                                     class="w-full text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                                Register
+                                {{ __('all.register') }}
                             </button>
                         </div>
                         <div class="mt-10 text-center">
-                            <p class="mb-0 text-slate-500 dark:text-zink-200">{{ __('Already registered?') }} <a
-                                    href="{{route('login')}}"
-                                    wire:navigate
+                            <p class="mb-0 text-slate-500 dark:text-zink-200">{{ __('all.already_registered') }}
+                                <a href="{{route('login')}}" wire:navigate
                                     class="font-semibold underline transition-all duration-150 ease-linear text-slate-500 dark:text-zink-200 hover:text-custom-500 dark:hover:text-custom-500">
-                                    Login</a></p>
+                                    {{ __('all.login') }}
+                                </a>
+                            </p>
                         </div>
                     </form>
                 </div>
@@ -106,7 +107,7 @@ new #[Layout('layouts.auth')] class extends Component {
                 <div class="!px-10 !pt-10 h-full !pb-0 card-body flex flex-col">
                     <div class="flex items-center justify-between gap-3">
                         <div class="grow">
-                            <a href="index-1.html">
+                            <a href="#">
                                 <img src="{{asset('logo-lg.png')}}" alt="" class="hidden h-6 dark:block">
                                 <img src="{{asset('logo-lg.png')}}" alt="" class="block h-6 dark:hidden">
                             </a>

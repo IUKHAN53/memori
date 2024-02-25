@@ -3,7 +3,7 @@
         <div class="rounded flex justify-end">
             <button type="submit" @click="modelOpen =!modelOpen"
                     class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                Add New Photo
+                {{ __('all.add_new_photo') }}
             </button>
         </div>
     @endif
@@ -66,7 +66,7 @@
                  class="inline-block w-50 shadow-2xl max-w-xl p-8 my-8 overflow-hidden text-left transition-all transform bg-white rounded-lg sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
             >
                 <div class="flex items-center justify-between space-x-4">
-                    <h1 class="text-xl font-medium text-gray-800 ">Add a new Photo</h1>
+                    <h1 class="text-xl font-medium text-gray-800 ">{{ __('all.add_new_photo') }}</h1>
                     <button @click="modelOpen = false" class="text-gray-600 focus:outline-none hover:text-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -76,27 +76,28 @@
                     </button>
                 </div>
                 <p class="mt-2 text-sm text-gray-500 ">
-                    Add photo and enter details
+                    {{ __('all.add_photo_enter_details') }}
                 </p>
                 <form class="mt-5">
                     <div>
-                        <label for="user name" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
-                            Photo
+                        <label for="photo" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
+                            {{ __('all.photo') }}
                         </label>
-                        <input placeholder="Photo" type="file" wire:model="photo"
+                        <input placeholder="{{ __('all.photo') }}" type="file" wire:model="photo"
                                class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
-                        @error('photo') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                        <label for="user name" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
-                            Caption
+                        @error('photo') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
+
+                        <label for="caption" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
+                            {{ __('all.caption') }}
                         </label>
-                        <input placeholder="Caption" type="text" wire:model="caption"
+                        <input placeholder="{{ __('all.caption') }}" type="text" wire:model="caption"
                                class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
-                        @error('caption') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        @error('caption') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
                     </div>
                     <div class="flex justify-end mt-6">
                         <button type="button" wire:click="addPhoto" @click="modelOpen = false"
                                 class="px-3 py-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-custom-500 rounded-md dark:bg-custom-600 dark:hover:bg-custom-700 dark:focus:bg-custom-700 hover:bg-custom-600 focus:outline-none focus:bg-custom-500 focus:ring focus:ring-custom-300 focus:ring-opacity-50">
-                            + Add
+                            {{ __('all.add') }}
                         </button>
                     </div>
                 </form>

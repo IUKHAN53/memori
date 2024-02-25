@@ -2,11 +2,11 @@
     <div class="rounded flex justify-end m-3">
         <button type="submit" @click="modelOpen =!modelOpen"
                 class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-            + Post a Tribute
+            {{ __('all.post_tribute') }}
         </button>
     </div>
     <div class="shadow-lg rounded p-5 border mt-3">
-        <div class="">
+        <div>
             @foreach($tributes as $tribute)
                 <div class="flex flex-col justify-between items-center md:flex-row gap-3">
                     <div class="flex justify-start items-start flex-col md:flex-row gap-3">
@@ -37,7 +37,7 @@
                                             </g>
                             <g id="Layer_1"/>
                                         </svg>
-                        <span>Likes ({{$tribute->likes}})</span>
+                        <span>{{ __('all.likes') }} ({{$tribute->likes}})</span>
                     </div>
                     <div class="flex gap-3 items-center justify-center">
                         <svg viewBox="0 0 48 48"
@@ -65,7 +65,7 @@
                                     </g>
                                 </g>
                             </g></svg>
-                        <span>Comments({{$tribute->comments()->count()}})</span>
+                        <span>{{ __('all.comments') }}({{$tribute->comments()->count()}})</span>
                     </div>
                 </div>
                 <div class="flex flex-col gap-3">
@@ -74,7 +74,6 @@
             @endforeach
         </div>
     </div>
-
     <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
          aria-modal="true">
         <div class="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
@@ -120,18 +119,18 @@
                         </div>
                     </div>
                     <div>
-                        <label for="title">Title</label>
+                        <label for="title">{{ __('all.title') }}</label>
                         <input type="text" class="form-input" wire:model="title" id="title">
                     </div>
                     <div>
-                        <label for="description">Description</label>
+                        <label for="description">{{ __('all.description') }}</label>
                         <textarea class="form-input" wire:model="tribute" id="description"
                                   rows="5"></textarea>
                     </div>
                     <div class="flex items-center justify-between">
                         <button type="submit" wire:click="postTribute" @click="modelOpen =!modelOpen"
                                 class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                            Publish
+                            {{ __('all.publish') }}
                         </button>
                     </div>
                 </div>

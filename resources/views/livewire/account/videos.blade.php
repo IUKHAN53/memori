@@ -3,7 +3,7 @@
         <div class="rounded flex justify-end">
             <button type="submit" @click="modelOpen =!modelOpen"
                     class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                Add New Video
+                {{ __('all.add_new_video') }}
             </button>
         </div>
     @endif
@@ -47,7 +47,7 @@
                  style="width: 30%;"
             >
                 <div class="flex items-center justify-between space-x-4">
-                    <h1 class="text-xl font-medium text-gray-800 ">Add a new Video</h1>
+                    <h1 class="text-xl font-medium text-gray-800 ">{{ __('all.add_new_video') }}</h1>
                     <button @click="modelOpen = false" class="text-gray-600 focus:outline-none hover:text-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -57,33 +57,33 @@
                     </button>
                 </div>
                 <p class="mt-2 text-sm text-gray-500 ">
-                    Add Video URL and enter details
+                    {{ __('all.add_video_url_details') }}
                 </p>
                 <form class="mt-5">
                     <div>
                         <label for="user name" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
-                            Youtube Video URL
+                            {{ __('all.youtube_video_url') }}
                         </label>
-                        <input placeholder="https://www.youtube.com/watch?v=JeoHM2_ntfw" type="text" wire:model="url"
+                        <input placeholder="{{ __('all.enter_video_url') }}" type="text" wire:model="url"
                                class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
                         @error('url') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         <label for="user name" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
-                            Video Title
+                            {{ __('all.video_title') }}
                         </label>
-                        <input placeholder="Enter Video Title" type="text" wire:model="title"
+                        <input placeholder="{{ __('all.enter_video_title') }}" type="text" wire:model="title"
                                class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
                         @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         <label for="user name" class="block text-sm text-gray-700 capitalize dark:text-gray-200">
-                            Description
+                            {{ __('all.description') }}
                         </label>
-                        <input placeholder="Enter Video Description" type="text" wire:model="description"
+                        <input placeholder="{{ __('all.enter_video_description') }}" type="text" wire:model="description"
                                class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
                         @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
                     <div class="flex justify-end mt-6">
                         <button type="button" wire:click="addVideo" @click="modelOpen = false"
                                 class="px-3 py-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-custom-500 rounded-md dark:bg-custom-600 dark:hover:bg-custom-700 dark:focus:bg-custom-700 hover:bg-custom-600 focus:outline-none focus:bg-custom-500 focus:ring focus:ring-custom-300 focus:ring-opacity-50">
-                            + Add
+                            {{ __('all.add') }}
                         </button>
                     </div>
                 </form>

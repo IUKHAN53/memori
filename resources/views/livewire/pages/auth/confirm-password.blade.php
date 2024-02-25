@@ -39,13 +39,13 @@ new #[Layout('layouts.guest')] class extends Component
 
 <div>
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+        {{ __('all.confirm_password_notice') }}
     </div>
 
     <form wire:submit="confirmPassword">
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('all.password')" />
 
             <x-text-input wire:model="password"
                           id="password"
@@ -59,7 +59,7 @@ new #[Layout('layouts.guest')] class extends Component
 
         <div class="flex justify-end mt-4">
             <x-primary-button>
-                {{ __('Confirm') }}
+                {{ __('all.confirm') }}
             </x-primary-button>
         </div>
     </form>

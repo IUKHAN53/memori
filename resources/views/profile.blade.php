@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Title') }}
+            {{$profile->full_name }}
         </h2>
     </x-slot>
     <section class="relative py-24 xl:py-32" id="">
@@ -54,31 +54,31 @@
                             <li class="group active">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="bio"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
-                                    Bio
+                                    {{__('all.bio')}}
                                 </a>
                             </li>
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="photos"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
-                                    Photos
+                                    {{__('all.photos')}}
                                 </a>
                             </li>
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="videos"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
-                                    Videos
+                                    {{__('all.videos')}}
                                 </a>
                             </li>
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="tributes"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
-                                    Tributes
+                                    {{__('all.tributes')}}
                                 </a>
                             </li>
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="details"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
-                                    Details
+                                    {{__('all.details')}}
                                 </a>
                             </li>
                         </ul>
@@ -100,21 +100,19 @@
                             </div>
                             <div class="hidden tab-pane" id="details">
                                 <div class="flex flex-col gap-3">
-                                    <h6 class="py-3">Cemetery information</h6>
-                                    <!-- Cemetery -->
+                                    <h6 class="py-3">{{__('all.cemetery_information')}}</h6>
                                     <div class="flex flex-col md:flex-row gap-3">
-                                        <h6>Obituary link:</h6>
+                                        <h6{{__('all.obituary_link')}}</h6>
                                         <a target="_blank"
                                            href="{{$profile->obituary_link}}"
-                                           style="text-decoration: underline;">See obituary </a>
+                                           style="text-decoration: underline;">{{__('all.see_obituary')}}</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div><!--end card-->
-        </div><!--end container-->
-    </section><!--end -->
-
+            </div>
+        </div>
+    </section>
 </x-app-layout>

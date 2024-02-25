@@ -29,7 +29,7 @@
                             </div>
                             <div>
                                 <div class="font-medium text-lg">{{auth()->user()->name}}</div>
-                                <div class="text-gray-500">Joined {{auth()->user()->created_at->diffForHumans()}}</div>
+                                <div class="text-gray-500">{{__('all.Joined')}} {{auth()->user()->created_at->diffForHumans()}}</div>
                             </div>
                         </div>
                         <div class="flex justify-end items-end">
@@ -37,9 +37,8 @@
                                 class="bg-yellow-100 border border-yellow-300 text-yellow-700 p-4 rounded-lg max-w-sm mx-auto my-8 shadow-md">
                                 <div class="flex justify-between items-start">
                                     <div class="flex-1">
-                                        <h2 class="text-lg font-semibold">Welcome back!</h2>
-                                        <p>Thank you for choosing Turning Hearts to keep the memory of your loved ones
-                                            alive. We are honored to be a part of your healing journey.</p>
+                                        <h2 class="text-lg font-semibold">{{ __('all.welcome_back') }}</h2>
+                                        <p>{{__('all.thank_you_for_choosing')}}</p>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -58,21 +57,27 @@
                         <ul class="flex flex-wrap justify-center w-full text-sm font-medium text-center border-b border-slate-200 dark:border-zink-500 nav-tabs">
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="favourites"
-                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">My
-                                    Favourites</a>
+                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
+                                    {{ __('all.my_favourites')}}
+                                </a>
                             </li>
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="posts"
-                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">Posts</a>
+                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
+                                    {{ __('all.posts')}}
+                                </a>
                             </li>
                             <li class="group active">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="medallions"
-                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">Medallions</a>
+                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
+                                    {{ __('all.medallions')}}
+                                </a>
                             </li>
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="account"
-                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">My
-                                    Accounts</a>
+                                   class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
+                                    {{ __('all.my_accounts')}}
+                                </a>
                             </li>
                         </ul>
                         <div class="mt-5 tab-content">
@@ -96,7 +101,7 @@
     </section>
     <x-modal name="update-profile-image" :show="$errors->isNotEmpty()" focusable max>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Change Profile Picture') }}
+            {{ __('all.change_profile_picture') }}
         </h2>
         <div>
             <div>
@@ -135,13 +140,13 @@
                                         stroke="currentColor" stroke-width="1.5"/>
                                 </svg>
                                 <label for="{{ $field['id'] }}" class="tf-cropper-drop-zone">
-                                    Drag and drop or select a file
+                                    {{ __('all.drag_and_drop_or_select_a_file') }}
                                 </label>
                                 <p class="tf-cropper-file-info">
-                                    Jpg, gif, png, Max Size 4MB
+                                    {{ __('all.jpg_gif_png_max_size') }}
                                 </p>
                                 <button type="button" x-on:click.prevent class="tf-cropper-upload">
-                                    Upload
+                                    {{ __('all.upload') }}
                                 </button>
                             </div>
 

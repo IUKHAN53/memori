@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\SiteSettings;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -11,10 +12,9 @@ class LanguageMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if ($request->has('lang')) {
-            App::setLocale($request->get('lang'));
-        } else if (session()->has('lang')) {
-            App::setLocale(session()->get('lang'));
+        $language = SiteSettings::query()->where('key', 'language')->first();
+        if ($language) {
+            App::setLocale($language->value);
         }
         return $next($request);
     }

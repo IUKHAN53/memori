@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="overflow-x-hidden scroll-smooth group" data-mode="light" dir="ltr">
+<html lang="{{getLanguage()}}" class="overflow-x-hidden scroll-smooth group" data-mode="light" dir="{{getDirection()}}">
 <head>
     <meta charset="utf-8">
     <title>Memori</title>
@@ -34,31 +34,31 @@
                 class="absolute inset-x-0 z-20 items-center hidden py-3 bg-white shadow-lg dark:bg-zink-600 dark:md:bg-transparent md:z-0 navbar-menu rounded-b-md md:shadow-none md:flex top-full ltr:ml-auto rtl:mr-auto md:relative md:bg-transparent md:rounded-none md:top-auto md:py-0">
                 <li>
                     <a href="#"
-                       class="block md:inline-block px-4 md:px-3 py-2.5 md:py-0.5 text-15 font-medium text-slate-800 transition-all duration-300 ease-linear hover:text-custom-500 [&.active]:text-custom-500 dark:text-zink-100 dark:hover:text-custom-500 dark:[&.active]:text-custom-500">Favourites</a>
+                       class="block md:inline-block px-4 md:px-3 py-2.5 md:py-0.5 text-15 font-medium text-slate-800 transition-all duration-300 ease-linear hover:text-custom-500 [&.active]:text-custom-500 dark:text-zink-100 dark:hover:text-custom-500 dark:[&.active]:text-custom-500">{{ __('all.favourites') }}</a>
                 </li>
                 <li>
                     <a href="#"
-                       class="block md:inline-block px-4 md:px-3 py-2.5 md:py-0.5 text-15 font-medium text-slate-800 transition-all duration-300 ease-linear hover:text-custom-500 [&.active]:text-custom-500 dark:text-zink-100 dark:hover:text-custom-500 dark:[&.active]:text-custom-500">Shop</a>
+                       class="block md:inline-block px-4 md:px-3 py-2.5 md:py-0.5 text-15 font-medium text-slate-800 transition-all duration-300 ease-linear hover:text-custom-500 [&.active]:text-custom-500 dark:text-zink-100 dark:hover:text-custom-500 dark:[&.active]:text-custom-500">{{ __('all.shop') }}</a>
                 </li>
                 <li>
                     <a href="#"
-                       class="block md:inline-block px-4 md:px-3 py-2.5 md:py-0.5 text-15 font-medium text-slate-800 transition-all duration-300 ease-linear hover:text-custom-500 [&.active]:text-custom-500 dark:text-zink-100 dark:hover:text-custom-500 dark:[&.active]:text-custom-500">Settings</a>
+                       class="block md:inline-block px-4 md:px-3 py-2.5 md:py-0.5 text-15 font-medium text-slate-800 transition-all duration-300 ease-linear hover:text-custom-500 [&.active]:text-custom-500 dark:text-zink-100 dark:hover:text-custom-500 dark:[&.active]:text-custom-500">{{ __('all.settings') }}</a>
                 </li>
                 @if(auth()->check())
-                <li class="relative flex items-center dropdown h-header">
-                    <button type="button"
-                            class="inline-block p-0 transition-all duration-200 ease-linear bg-topbar rounded-full text-topbar-item dropdown-toggle btn hover:bg-topbar-item-bg-hover hover:text-topbar-item-hover group-data-[topbar=dark]:text-topbar-item-dark group-data-[topbar=dark]:bg-topbar-dark group-data-[topbar=dark]:hover:bg-topbar-item-bg-hover-dark group-data-[topbar=dark]:hover:text-topbar-item-hover-dark group-data-[topbar=brand]:bg-topbar-brand group-data-[topbar=brand]:hover:bg-topbar-item-bg-hover-brand group-data-[topbar=brand]:hover:text-topbar-item-hover-brand group-data-[topbar=dark]:dark:bg-zink-700 group-data-[topbar=dark]:dark:hover:bg-zink-600 group-data-[topbar=brand]:text-topbar-item-brand group-data-[topbar=dark]:dark:hover:text-zink-50 group-data-[topbar=dark]:dark:text-zink-200"
-                            id="dropdownMenuButton">
-                        <div class="bg-pink-100 rounded-full">
-                            <img src="{{auth()->user()->picture}}" alt="" class="w-[37.5px] h-[37.5px] rounded-full">
-                        </div>
-                    </button>
+                    <li class="relative flex items-center dropdown h-header">
+                        <button type="button"
+                                class="inline-block p-0 transition-all duration-200 ease-linear bg-topbar rounded-full text-topbar-item dropdown-toggle btn hover:bg-topbar-item-bg-hover hover:text-topbar-item-hover group-data-[topbar=dark]:text-topbar-item-dark group-data-[topbar=dark]:bg-topbar-dark group-data-[topbar=dark]:hover:bg-topbar-item-bg-hover-dark group-data-[topbar=dark]:hover:text-topbar-item-hover-dark group-data-[topbar=brand]:bg-topbar-brand group-data-[topbar=brand]:hover:bg-topbar-item-bg-hover-brand group-data-[topbar=brand]:hover:text-topbar-item-hover-brand group-data-[topbar=dark]:dark:bg-zink-700 group-data-[topbar=dark]:dark:hover:bg-zink-600 group-data-[topbar=brand]:text-topbar-item-brand group-data-[topbar=dark]:dark:hover:text-zink-50 group-data-[topbar=dark]:dark:text-zink-200"
+                                id="dropdownMenuButton">
+                            <div class="bg-pink-100 rounded-full">
+                                <img src="{{auth()->user()->picture}}" alt=""
+                                     class="w-[37.5px] h-[37.5px] rounded-full">
+                            </div>
+                        </button>
                         <div
                             class="absolute z-50 p-4 ltr:text-left rtl:text-right bg-white rounded-md shadow-md !top-4 dropdown-menu min-w-[14rem] dark:bg-zink-600 hidden"
                             aria-labelledby="dropdownMenuButton" data-popper-placement="bottom-start"
                             style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(-168.5px, 55px, 0px);">
-                            <h6 class="mb-2 text-sm font-normal text-slate-500 dark:text-zink-300">Welcome to
-                                memori</h6>
+                            <h6 class="mb-2 text-sm font-normal text-slate-500 dark:text-zink-300">{{__('all.welcome_message')}}</h6>
                             <a href="#!" class="flex gap-3 mb-3">
                                 <div class="relative inline-block shrink-0">
                                     <div class="rounded bg-slate-100 dark:bg-zink-500">
@@ -84,7 +84,8 @@
                                             <circle cx="12" cy="8" r="5"></circle>
                                             <path d="M20 21a8 8 0 0 0-16 0"></path>
                                         </svg>
-                                        Profile</a>
+                                        {{ __('all.profile') }}
+                                    </a>
                                 </li>
                                 <li>
                                     <a class="block ltr:pr-4 rtl:pl-4 py-1.5 text-base font-medium transition-all duration-200 ease-linear text-slate-600 dropdown-item hover:text-custom-500 focus:text-custom-500 dark:text-zink-200 dark:hover:text-custom-500 dark:focus:text-custom-500"
@@ -97,7 +98,8 @@
                                             <path d="M11 3 8 9l4 13 4-13-3-6"></path>
                                             <path d="M2 9h20"></path>
                                         </svg>
-                                        Shop for QR Codes</a>
+                                        {{ __('all.shop_for_qr_codes') }}
+                                    </a>
                                 </li>
                                 <li class="pt-2 mt-2 border-t border-slate-200 dark:border-zink-500">
                                     <a onclick="document.getElementById('logout-form').submit();"
@@ -111,7 +113,8 @@
                                             <polyline points="16 17 21 12 16 7"></polyline>
                                             <line x1="21" x2="9" y1="12" y2="12"></line>
                                         </svg>
-                                        Sign Out</a>
+                                        {{ __('all.sign_out') }}
+                                    </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                           style="display: none;">
                                         @csrf
@@ -119,13 +122,13 @@
                                 </li>
                             </ul>
                         </div>
-                </li>
+                    </li>
                 @else
-                    <li >
+                    <li>
                         <a href="{{route('login')}}"
                            class="flex items-center justify-center w-full h-10 px-4 text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
                             <i data-lucide="log-in"></i>
-                            <span class="ml-2">Login</span>
+                            <span class="ml-2">{{ __('all.login') }}</span>
                         </a>
                     </li>
                 @endif
