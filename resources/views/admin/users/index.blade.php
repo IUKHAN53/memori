@@ -7,7 +7,7 @@
             <div class="container-fluid group-data-[content=boxed]:max-w-boxed mx-auto">
                 <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
                     <div class="grow">
-                        <h5 class="text-16">{{ __('all.qr_codes') }}</h5>
+                        <h5 class="text-16">{{ __('all.manage_users') }}</h5>
                     </div>
                     <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
                         <li class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1  before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
@@ -22,8 +22,8 @@
                     <div class="card-body">
                         <div class="flex justify-between items-center gap-3 md:flex-row flex-col mb-5">
                             <a href="{{ route('admin.users.create') }}"
-                               class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                                <i data-lucide="user-round-plus"></i> {{ __('all.add_user') }}
+                               class="float-end text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
+                                <i data-lucide="user-round-plus"></i>
                             </a>
                         </div>
                         <table id="basic_tables" class="display stripe group" style="width:100%">

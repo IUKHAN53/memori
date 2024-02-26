@@ -14,40 +14,47 @@
             </button>
         </div>
     </div>
-    <table class="display stripe group text-start" style="width:100%">
+    <table class="items-center bg-transparent w-full border-collapse ">
         <thead>
         <tr>
-            <th class="text-start">{{ __('all.qr_code') }}</th>
-            <th class="text-start">{{ __('all.download_qr') }}</th>
-            <th class="text-start">{{ __('all.identifier') }}</th>
-            <th class="text-start">{{ __('all.url') }}</th>
-            <th class="text-start">{{ __('all.assigned') }}</th>
-            <th class="text-start">{{ __('all.created_at') }}</th>
-            <th class="text-start">{{ __('all.action') }}</th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.qr_code') }}</th>
+{{--            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.download_qr') }}</th>--}}
+{{--            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.identifier') }}</th>--}}
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.url') }}</th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.assigned') }}</th>
+{{--            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.created_at') }}</th>--}}
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.action') }}</th>
         </tr>
         </thead>
         <tbody>
         @foreach($qrCodes as $qrCode)
             <tr>
-                <td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
                     <img src="{{Storage::url($qrCode->path)}}" alt="QR Code" class="w-auto h-14 ml-3">
                 </td>
-                <td class="text-center">
-                    <a href="{{Storage::url($qrCode->path)}}" download><img src="{{asset('assets/images/download.svg')}}" alt=""></a>
+{{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">--}}
+{{--                    <a href="{{Storage::url($qrCode->path)}}" download><img--}}
+{{--                            src="{{asset('assets/images/download.svg')}}" alt="Download"></a>--}}
+{{--                </td>--}}
+{{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4" class=" ltr:!text-left rtl:!text-right">{{$qrCode->identifier}}</td>--}}
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <a href="{{route('qr-code.verify', ['identifier' => $qrCode->identifier])}}" target="_blank"
+                    class="text-custom-500">
+                        <i data-lucide="external-link"></i>
+                    </a>
                 </td>
-                <td class="ltr:!text-left rtl:!text-right">{{$qrCode->identifier}}</td>
-                <td>{{route('qr-code.verify', ['identifier' => $qrCode->identifier])}}</td>
-                <td><span
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"><span
                         class="text-{{$qrCode->is_assigned ? 'purple' : 'green'}}-500">{{$qrCode->is_assigned ? 'Yes' : 'No'}}</span>
                 </td>
-                <td>
-                    <span class="text-gray-500">{{$qrCode->created_at->format('d M Y')}}</span>
-                </td>
-                <td>
-                    <div class="flex items text-center">
+{{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">--}}
+{{--                    <span class="text-gray-500">{{$qrCode->created_at->format('d M Y')}}</span>--}}
+{{--                </td>--}}
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <div class="flex items-center justify-center">
                         <button wire:click="deleteQr('{{$qrCode->id}}')"
-                           class="text-red-500 hover:text-red-600 focus:text-red-600 dark:text-red-400 dark:hover:text-red-500 dark:focus:text-red-500">
-                            <img src="{{asset('assets/images/trash.svg')}}" alt="">
+                                wire:confirm="{{__('all.qr_code_delete?')}}"
+                                class="text-red-500 hover:text-red-600 focus:text-red-600 dark:text-red-400 dark:hover:text-red-500 dark:focus:text-red-500">
+                            <img src="{{asset('assets/images/trash.svg')}}" alt="Delete">
                         </button>
                     </div>
                 </td>

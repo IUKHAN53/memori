@@ -57,21 +57,21 @@ new #[Layout('layouts.auth')] class extends Component {
                             <x-input-error :messages="$errors->get('first_name')" class="mt-2"/>
                         </div>
                         <div class="mb-3">
-                            <x-input-label for="last_name" :value="__('Last Name')"/>
+                            <x-input-label for="last_name" :value="__('all.last_name')"/>
                             <x-text-input wire:model="last_name" id="last_name" type="text" name="last_name" required autofocus
                                           autocomplete="last_name"/>
                             <x-input-error :messages="$errors->get('last_name')" class="mt-2"/>
                         </div>
 
                         <div class="mb-3">
-                            <x-input-label for="email" :value="__('Email')"/>
+                            <x-input-label for="email" :value="__('all.email')"/>
                             <x-text-input wire:model="email" id="email"
                                           type="email" name="email" required autocomplete="email"/>
                             <x-input-error :messages="$errors->get('email')"/>
                         </div>
 
                         <div class="mb-3">
-                            <x-input-label for="password" :value="__('Password')"/>
+                            <x-input-label for="password" :value="__('all.password')"/>
 
                             <x-text-input wire:model="password" id="password" type="password" name="password"
                                           required autocomplete="new-password"/>

@@ -195,4 +195,6 @@ return [
     'Manage_Profiles' => 'ניהול פרופילים',
     'Manage_Site_Settings' => 'ניהול הגדרות אתר',
     'Joined' => 'הצטרף',
+    'not_assigned' => 'לא מוקצה',
+    'qr_code_delete?' => 'האם אתה בטוח שברצונך למחוק קוד QR זה?',
 ];

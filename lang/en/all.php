@@ -195,4 +195,6 @@ return [
     'Manage_Profiles' => 'Manage Profiles',
     'Manage_Site_Settings' => 'Manage Site Settings',
     'Joined' => 'Joined',
+    'not_assigned' => 'Not Assigned',
+    'qr_code_delete?' => 'Are you sure you want to delete this QR code?',
 ];

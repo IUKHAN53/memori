@@ -28,7 +28,7 @@ return new class extends Migration
             $table->text('quote_text')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->date('date_of_death')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });
     }

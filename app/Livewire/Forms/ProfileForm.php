@@ -12,17 +12,14 @@ class ProfileForm extends Form
     #[Validate('required')]
     public $first_name;
 
-    public $middle_name; // No validation rule means it's optional
+    public $middle_name;
 
     #[Validate('required')]
     public $last_name;
 
-    // Continue for each attribute, applying the given rules
     public $title;
     public $relationship;
-
     public $picture;
-
     public $city;
     public $state;
     public $obituary_link;
