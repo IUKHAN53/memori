@@ -8,9 +8,6 @@
                     <i data-lucide="heart" class="w-5 h-5"
                        style="{{auth()->user()->hasFavourited($favourite->profile)?'fill: yellow;':''}}"></i>
                 </button>
-                <button class="text-gray-400 hover:text-gray-500">
-                    <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                </button>
             </div>
             <div class="flex flex-col items-center">
                 <img class="rounded-full mb-4"

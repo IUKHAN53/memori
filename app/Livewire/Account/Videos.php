@@ -44,4 +44,11 @@ class Videos extends Component
 
         $this->reset(['url', 'title', 'description']);
     }
+
+    public function removeVideo($videoId)
+    {
+        $video = $this->profile->videos()->where('id', $videoId)->first();
+        $video->delete();
+        $this->videos = $this->profile->videos;
+    }
 }

@@ -1,6 +1,5 @@
 <div>
     <section class="relative py-24 xl:py-32" id="">
-        <div class="absolute bottom-0 right-0 w-64 h-64 bg-custom-500/10 blur-3xl"></div>
         <div class="container 2xl:max-w-[87.5rem] px-4 mx-auto">
             <div class="card">
                 <div class="card-body">
@@ -55,25 +54,25 @@
                     </div>
                     <div>
                         <ul class="flex flex-wrap justify-center w-full text-sm font-medium text-center border-b border-slate-200 dark:border-zink-500 nav-tabs">
-                            <li class="group">
+                            <li class="group {{$tab == 'favourites' ? 'active' : ''}}">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="favourites"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
                                     {{ __('all.my_favourites')}}
                                 </a>
                             </li>
-                            <li class="group">
+                            <li class="group {{$tab == 'posts' ? 'active' : ''}}">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="posts"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
                                     {{ __('all.posts')}}
                                 </a>
                             </li>
-                            <li class="group active">
+                            <li class="group {{$tab == 'medallions' ? 'active' : ''}}">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="medallions"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
                                     {{ __('all.medallions')}}
                                 </a>
                             </li>
-                            <li class="group">
+                            <li class="group {{$tab == 'settings' ? 'active' : ''}}">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="account"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
                                     {{ __('all.my_accounts')}}
@@ -81,16 +80,16 @@
                             </li>
                         </ul>
                         <div class="mt-5 tab-content">
-                            <div class="hidden tab-pane" id="favourites">
+                            <div class="{{$tab == 'favourites' ? 'block' : 'hidden'}} tab-pane" id="favourites">
                                 <livewire:user.profile.favourites/>
                             </div>
-                            <div class="hidden tab-pane" id="posts">
+                            <div class="{{$tab == 'posts' ? 'block' : 'hidden'}} tab-pane" id="posts">
                                 <livewire:user.profile.posts/>
                             </div>
-                            <div class="block tab-pane" id="medallions">
+                            <div class="{{$tab == 'medallions' ? 'block' : 'hidden'}} tab-pane" id="medallions">
                                 <livewire:user.profile.medallions/>
                             </div>
-                            <div class="hidden tab-pane" id="account">
+                            <div class="{{$tab == 'settings' ? 'block' : 'hidden'}} tab-pane" id="account">
                                 <livewire:user.profile.accounts/>
                             </div>
                         </div>
@@ -107,7 +106,6 @@
             <div>
                 <div wire:ignore class="tf-cropper-root">
                     <div x-data="imageCropper({
-        imageUrl: '{{ data_get($this, $field['id']) }}',
         width: {{ $field['width'] }},
         height: {{ $field['height'] }},
         shape: '{{ $field['shape'] }}',
@@ -159,32 +157,13 @@
                                     <div class="m-auto" x-ref="croppie"></div>
                                     <div class="flex justify-center items-center gap-2">
                                         <button type="button" class="text-red-600"
-                                                x-on:click.prevent="swap()"><i data-lucide="trash"></i></button>
+                                                x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
                                         <button type="button" class="text-custom-600"
                                                 x-on:click.prevent="saveCroppie()"><i data-lucide="save"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        {{-- result--}}
-                        <div x-show="!showCroppie && hasImage" class="relative lg">
-                            <div class="absolute inset-0 isolate;">
-                                <div class="flex gap-2 h-full w-full items-center justify-center;">
-                                    <button type="button"
-                                            class="bg-[#d9534f] bg-opacity-75 hover:bg-opacity-100 text-white p-1 text-xs rounded"
-                                            x-on:click.prevent="remove()">
-                                        <i data-lucid="x"></i>
-                                    </button>
-                                    <button type="button" class="z-10 absolute inset-0" x-on:click.prevent="edit()">
-                                        <i data-lucid="x"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div><img src="{{ data_get($this, $field['key']) }}" alt x-ref="result"
-                                      class="display-block"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -193,7 +172,7 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('imageCropper', (config) => ({
                 showCroppie: false,
-                hasImage: config.imageUrl.length > 0,
+                hasImage: false,
                 originalSrc: config.imageUrl,
                 width: config.width,
                 height: config.height,

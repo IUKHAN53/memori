@@ -16,6 +16,11 @@
                 <div class="p-3">
                     <h6 style="font-size:16px">{{$video->title}}</h6>
                     <p>{{$video->description}}</p>
+                    <button class="text-red-400 hover:text-red-500 float-right"
+                            wire:click="removeVideo({{$video->id}})"
+                            wire:confirm="{{ __('all.are_you_sure_remove_video') }}">
+                        <i data-lucide="trash" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
         @endforeach

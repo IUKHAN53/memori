@@ -142,6 +142,7 @@ return [
     'wife' => 'Wife',
     'profile_picture' => 'Profile picture',
     'headline_text' => 'Headline text',
+    'heading_text' => 'Heading text',
     'text_or_phrase' => 'Text or phrase',
     'headline_text_description' => 'This headline text is the one that shows above the name of the person. If this field is null, the headline text won’t be added.',
     'do_not_include_headline_text' => 'Don’t include headline text',
@@ -197,4 +198,10 @@ return [
     'Joined' => 'Joined',
     'not_assigned' => 'Not Assigned',
     'qr_code_delete?' => 'Are you sure you want to delete this QR code?',
+    'lifetimes' => 'Lifetime',
+    'change_cover_photo' => 'Change Cover Photo',
+    'cover_photo' => 'Cover Photo',
+    'buy_qr_codes' => 'Buy QR Codes',
+    'are_you_sure_remove_video' => 'Are you sure you want to remove this video?',
+    'are_you_sure_remove_photo' => 'Are you sure you want to remove this photo?',
 ];

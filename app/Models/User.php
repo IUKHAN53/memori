@@ -89,4 +89,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(ProfileTributes::class);
     }
+
+    public function tributeLikes()
+    {
+        return $this->hasMany(TributeLikes::class);
+    }
+
+    public function hasLiked($tribute_id)
+    {
+        return $this->tributeLikes()->where('tribute_id', $tribute_id)->exists();
+    }
 }

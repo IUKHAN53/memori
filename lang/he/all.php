@@ -197,4 +197,11 @@ return [
     'Joined' => 'הצטרף',
     'not_assigned' => 'לא מוקצה',
     'qr_code_delete?' => 'האם אתה בטוח שברצונך למחוק קוד QR זה?',
+    'lifetimes' => 'תקופות חיים',
+    'change_cover_photo' => 'שנה תמונת כיסוי',
+    'cover_photo' => 'תמונת כיסוי',
+    'buy_qr_codes' => 'קנה קודי QR',
+    'heading_text' => 'טקסט כותרת',
+    'are_you_sure_remove_video' => 'האם אתה בטוח שברצונך להסיר סרטון זה?',
+    'are_you_sure_remove_photo' => 'האם אתה בטוח שברצונך להסיר תמונה זו?',
 ];

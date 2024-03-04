@@ -4,6 +4,7 @@ namespace App\Livewire\Account;
 
 use App\Models\Profile;
 use App\Models\ProfileTributes;
+use App\Models\TributeLikes;
 use Livewire\Component;
 
 class Tributes extends Component
@@ -46,7 +47,23 @@ class Tributes extends Component
     public function toggleLike($tributeId)
     {
         $tribute = ProfileTributes::find($tributeId);
-        $tribute->likes++;
+        $exist = TributeLikes::query()->where('tribute_id', $tributeId)->where('user_id', auth()->id());
+        if ($exist->exists()) {
+            $exist->delete();
+            $tribute->likes = $tribute->likes - 1;
+        } else {
+            $like = new TributeLikes();
+            $like->tribute_id = $tributeId;
+            $like->user_id = auth()->id();
+            $like->save();
+            $tribute->likes = $tribute->likes + 1;
+        }
         $tribute->save();
+    }
+
+    public function removeTribute($tributeId)
+    {
+        $tribute = ProfileTributes::find($tributeId);
+        $tribute->delete();
     }
 }

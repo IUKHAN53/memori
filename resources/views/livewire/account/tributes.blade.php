@@ -32,7 +32,7 @@
                                                 <g>
                                                     <path
                                                         d="M365.4,59.628c60.56,0,109.6,49.03,109.6,109.47c0,109.47-109.6,171.8-219.06,281.271    C146.47,340.898,37,278.568,37,169.099c0-60.44,49.04-109.47,109.47-109.47c54.73,0,82.1,27.37,109.47,82.1    C283.3,86.999,310.67,59.628,365.4,59.628z"
-                                                        style="fill:#FF7979;"/>
+                                                        style="fill:{{auth()->user()->hasLiked($tribute->id)?'#FF7979;':''}}"/>
                                                 </g>
                                             </g>
                             <g id="Layer_1"/>
@@ -67,6 +67,20 @@
                             </g></svg>
                         <span>{{ __('all.comments') }}({{$tribute->comments()->count()}})</span>
                     </div>
+                    <a class="flex gap-3 items-center justify-center text-red-600"
+                       wire:confirm.prompt="Are you sure? This action is irreversable."
+                       wire:click="removeTribute({{$tribute->id}})">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="#de2673" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="lucide lucide-trash-2">
+                            <path d="M3 6h18"/>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                            <line x1="10" x2="10" y1="11" y2="17"/>
+                            <line x1="14" x2="14" y1="11" y2="17"/>
+                        </svg>
+                        <span>{{ __('all.delete') }}</span>
+                    </a>
                 </div>
                 <div class="flex flex-col gap-3">
                     <livewire:comments :model="$tribute"/>

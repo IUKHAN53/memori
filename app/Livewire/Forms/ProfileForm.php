@@ -20,6 +20,7 @@ class ProfileForm extends Form
     public $title;
     public $relationship;
     public $picture;
+    public $cover_photo;
     public $city;
     public $state;
     public $obituary_link;
@@ -30,7 +31,7 @@ class ProfileForm extends Form
 
     #[Validate('required|date|before:today')]
     public $date_of_birth;
-
+    #[Validate('required|date|after:date_of_birth')]
     public $date_of_death;
 
     public $user_id;
@@ -52,6 +53,8 @@ class ProfileForm extends Form
         $this->relationship = $profile->relationship;
 
         $this->picture = $profile->picture;
+
+        $this->cover_photo = $profile->cover_photo;
 
         $this->city = $profile->city;
 

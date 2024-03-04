@@ -39,8 +39,7 @@
 {{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4" class=" ltr:!text-left rtl:!text-right">{{$qrCode->identifier}}</td>--}}
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <a href="{{route('qr-code.verify', ['identifier' => $qrCode->identifier])}}" target="_blank"
-                    class="text-custom-500">
-                        <i data-lucide="external-link"></i>
+                    class="text-custom-500">Click to open
                     </a>
                 </td>
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"><span

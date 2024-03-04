@@ -10,11 +10,11 @@
             <div class="flex flex-col">
                 <div class="flex flex-row">
                     <img class="rounded-full mb-4"
-                         src="{{$post->profile->profile_photo_url}}"
+                         src="{{$post->profile->profile_picture}}"
                          alt="Profile" style="width: 120px; height: 120px;">
                     <div>
                         <h5 class="text-lg font-bold mb-2">{{$post->profile->full_name}}</h5>
-                        <p class="text-gray-500 mb-4">{{ __('all.lifetime') }}: {{\Carbon\Carbon::parse($post->profile->date_of_birth)->format('d/m/Y')}}
+                        <p class="text-gray-500 mb-4">{{ __('all.lifetimes') }}: {{\Carbon\Carbon::parse($post->profile->date_of_birth)->format('d/m/Y')}}
                             - {{\Carbon\Carbon::parse($post->profile->date_of_death)->format('d/m/Y')}}
                             ({{$post->profile->age}} {{ __('all.years') }})</p>
                     </div>

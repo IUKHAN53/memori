@@ -10,6 +10,7 @@ use Usamamuneerchaudhary\Commentify\Traits\Commentable;
 class Profile extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'first_name',
         'middle_name',
@@ -17,6 +18,7 @@ class Profile extends Model
         'title',
         'relationship',
         'picture',
+        'cover_photo',
         'city',
         'state',
         'obituary_link',
@@ -59,6 +61,11 @@ class Profile extends Model
     public function getProfilePictureAttribute()
     {
         return $this->picture ? Storage::url($this->picture) : 'https://ui-avatars.com/api/?name=' . urlencode($this->full_name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
+    public function getCoverAttribute()
+    {
+        return $this->cover_photo ? Storage::url($this->cover_photo) : 'https://ui-avatars.com/api/?name=' . urlencode($this->full_name) . '&color=7F9CF5&background=EBF4FF';
     }
 
     public function getAgeAttribute()

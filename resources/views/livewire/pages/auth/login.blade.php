@@ -93,7 +93,7 @@ new #[Layout('layouts.auth')] class extends Component {
                 <div class="!px-10 !pt-10 h-full !pb-0 card-body flex flex-col">
                     <div class="flex items-center justify-between gap-3">
                         <div class="grow">
-                            <a href="index-1.html">
+                            <a href="#">
                                 <img src="{{asset('logo-lg.png')}}" alt="" class="hidden h-6 dark:block">
                                 <img src="{{asset('logo-lg.png')}}" alt="" class="block h-6 dark:hidden">
                             </a>

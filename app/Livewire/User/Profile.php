@@ -9,13 +9,16 @@ class Profile extends Component
 {
     protected $listeners = ['saveProfileImage'];
 
+    public string $tab = 'favourites';
+    protected $queryString = ['tab'];
+
+    public $field;
+    public $profileImage;
+
     public function render()
     {
         return view('livewire.user.profile');
     }
-
-    public $field;
-    public $profileImage;
 
     public function mount()
     {

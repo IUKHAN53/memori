@@ -64,13 +64,14 @@
                                 <img src="{{$profile->qr_code->image}}" alt="{{$profile->full_name}}"
                                      class="w-12 h-12">
                             @elseif(auth()->user()->hasQRCodes())
-                                <a href="#"
-                                   wire:click="generateQRCode({{$profile->id}})">{{ __('all.generate_qr_code') }}</a>
-                            @else
                                 <a href="#" wire:click="assignQrCode({{$profile->id}})"
                                    class="text-custom-500"
                                    wire:confirm.prompt="Are you sure? This action is irreversable. \n\nType ASSIGN to confirm|ASSIGN">
                                     {{ __('all.assign_available_qr_code') }}
+                                </a>
+                            @else
+                                <a href="{{getShopUrl()}}" target="_blank" class="text-custom-500">
+                                    {{ __('all.buy_qr_codes') }}
                                 </a>
                             @endif
                         </td>
@@ -171,7 +172,7 @@
                 </div>
                 <div>
                     <label for="middle_name" class="inline-block mb-2 text-base font-medium">
-                        {{ __('all.middle_name') }} <span class="text-red-500">*</span>
+                        {{ __('all.middle_name') }}
                     </label>
                     <input type="text" id="middle_name" wire:model="form.middle_name"
                            class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
@@ -207,26 +208,62 @@
                     </select>
                 </div>
             </div>
+
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
-                <div>
-                    <label for="profile_picture">{{ __('all.profile_picture') }}</label>
-                    <input type="file" id="profile_picture" wire:model="picture"
-                           class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500"
-                           placeholder="Enter your name">
+                <div class="relative inline-block group">
+                    <label for="text_or_phrase">{{ __('all.profile_picture') }}</label>
+                    <div class="flex ">
+                        <img src="{{$profile_picture}}"
+                             class="h-26 w-28 rounded-full object-cover" alt="Profile Picture"/>
+                        <button type="button" x-data=""
+                                class=""
+                                x-on:click.prevent="$dispatch('open-modal', 'update-profile-avatar')">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path
+                                    d="M2 12.5001L3.75159 10.9675C4.66286 10.1702 6.03628 10.2159 6.89249 11.0721L11.1822 15.3618C11.8694 16.0491 12.9512 16.1428 13.7464 15.5839L14.0446 15.3744C15.1888 14.5702 16.7369 14.6634 17.7765 15.599L21 18.5001"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path
+                                    d="M18.562 2.9354L18.9791 2.5183C19.6702 1.82723 20.7906 1.82723 21.4817 2.5183C22.1728 3.20937 22.1728 4.32981 21.4817 5.02087L21.0646 5.43797M18.562 2.9354C18.562 2.9354 18.6142 3.82172 19.3962 4.60378C20.1783 5.38583 21.0646 5.43797 21.0646 5.43797M18.562 2.9354L14.7275 6.76995C14.4677 7.02968 14.3379 7.15954 14.2262 7.30273C14.0945 7.47163 13.9815 7.65439 13.8894 7.84776C13.8112 8.01169 13.7532 8.18591 13.637 8.53437L13.2651 9.65M21.0646 5.43797L17.23 9.27253C16.9703 9.53225 16.8405 9.66211 16.6973 9.7738C16.5284 9.90554 16.3456 10.0185 16.1522 10.1106C15.9883 10.1888 15.8141 10.2468 15.4656 10.363L14.35 10.7349M14.35 10.7349L13.6281 10.9755C13.4567 11.0327 13.2676 10.988 13.1398 10.8602C13.012 10.7324 12.9673 10.5433 13.0245 10.3719L13.2651 9.65M14.35 10.7349L13.2651 9.65"
+                                    stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            Add
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    @if ($picture && $picture->temporaryUrl())
-                        <img class="rounded-full w-20 h-20 border-2 border-custom-400"
-                             src="{{ $picture->temporaryUrl() }}">
-                    @elseif($profile_picture !== null)
-                        <img class="rounded-full w-20 h-20 border-2 border-custom-400" src="{{ $profile_picture }}">
-                    @endif
+                <div class="relative inline-block">
+                    <label for="text_or_phrase">{{ __('all.cover_photo') }}</label>
+                    <div class="flex">
+                        <img
+                             src="{{$cover_photo}}" style="width: 400px; height: 120px" alt="Cover Photo"/>
+                        <button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-cover-photo')">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path
+                                    d="M2 12.5001L3.75159 10.9675C4.66286 10.1702 6.03628 10.2159 6.89249 11.0721L11.1822 15.3618C11.8694 16.0491 12.9512 16.1428 13.7464 15.5839L14.0446 15.3744C15.1888 14.5702 16.7369 14.6634 17.7765 15.599L21 18.5001"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path
+                                    d="M18.562 2.9354L18.9791 2.5183C19.6702 1.82723 20.7906 1.82723 21.4817 2.5183C22.1728 3.20937 22.1728 4.32981 21.4817 5.02087L21.0646 5.43797M18.562 2.9354C18.562 2.9354 18.6142 3.82172 19.3962 4.60378C20.1783 5.38583 21.0646 5.43797 21.0646 5.43797M18.562 2.9354L14.7275 6.76995C14.4677 7.02968 14.3379 7.15954 14.2262 7.30273C14.0945 7.47163 13.9815 7.65439 13.8894 7.84776C13.8112 8.01169 13.7532 8.18591 13.637 8.53437L13.2651 9.65M21.0646 5.43797L17.23 9.27253C16.9703 9.53225 16.8405 9.66211 16.6973 9.7738C16.5284 9.90554 16.3456 10.0185 16.1522 10.1106C15.9883 10.1888 15.8141 10.2468 15.4656 10.363L14.35 10.7349M14.35 10.7349L13.6281 10.9755C13.4567 11.0327 13.2676 10.988 13.1398 10.8602C13.012 10.7324 12.9673 10.5433 13.0245 10.3719L13.2651 9.65M14.35 10.7349L13.2651 9.65"
+                                    stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            Add
+                        </button>
+                    </div>
+
                 </div>
             </div>
+
             <h5>{{ __('all.headline_text') }}</h5>
             <hr>
             <div class="my-3">
-                <label for="text_or_phrase">{{ __('all.text_or_phrase') }}</label>
+                <label for="text_or_phrase">{{ __('all.heading_text') }}</label>
                 <input type="text" id="text_or_phrase" wire:model="form.heading_text"
                        class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                 >
@@ -252,7 +289,7 @@
                     class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                     id="bio_info" wire:model="form.bio" rows="3"></textarea>
             </div>
-            <h5>{{ __('all.lifetime') }}</h5>
+            <h5>{{ __('all.lifetimes') }}</h5>
             <hr>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
                 <div>
@@ -304,7 +341,7 @@
                 </label>
                 <textarea
                     class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                    id="text_or_phrase" wire:model="form.text_or_phrase" rows="3"></textarea>
+                    id="text_or_phrase" wire:model="form.quote_text" rows="3"></textarea>
                 <p class="text-sm">{{ __('all.headline_text_description') }}</p>
             </div>
             <button type="submit"
@@ -313,4 +350,212 @@
             </button>
         </form>
     </div>
+
+    <x-modal name="update-profile-avatar" :show="$errors->isNotEmpty()" focusable max>
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('all.change_profile_picture') }}
+        </h2>
+        <div>
+            <div>
+                <div wire:ignore class="tf-cropper-root">
+                    <div x-data="imageCropper2({
+        width: {{ $field1['width'] }},
+        height: {{ $field1['height'] }},
+        shape: '{{ $field1['shape'] }}',
+        fieldKey: '{{ $field1['id'] }}'
+    })" x-cloak>
+                        <div x-show="!showCroppie && !hasImage">
+                            <input type="file"
+                                   name="{{ $field1['name'] }}"
+                                   id="{{ $field1['id'] }}"
+                                   class="absolute inset-0 z-5 m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
+                                   @if($field1['disabled']) disabled @endif
+                                   x-ref="input"
+                                   x-on:change="updatePreview()"
+                                   x-on:dragover="$el.classList.add('active')"
+                                   x-on:dragleave="$el.classList.remove('active')"
+                                   x-on:drop="$el.classList.remove('active')">
+
+                            {{-- upload icon --}}
+                            <div class="flex flex-col items-center justify-center">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path
+                                        d="M2 12.5001L3.75159 10.9675C4.66286 10.1702 6.03628 10.2159 6.89249 11.0721L11.1822 15.3618C11.8694 16.0491 12.9512 16.1428 13.7464 15.5839L14.0446 15.3744C15.1888 14.5702 16.7369 14.6634 17.7765 15.599L21 18.5001"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path
+                                        d="M18.562 2.9354L18.9791 2.5183C19.6702 1.82723 20.7906 1.82723 21.4817 2.5183C22.1728 3.20937 22.1728 4.32981 21.4817 5.02087L21.0646 5.43797M18.562 2.9354C18.562 2.9354 18.6142 3.82172 19.3962 4.60378C20.1783 5.38583 21.0646 5.43797 21.0646 5.43797M18.562 2.9354L14.7275 6.76995C14.4677 7.02968 14.3379 7.15954 14.2262 7.30273C14.0945 7.47163 13.9815 7.65439 13.8894 7.84776C13.8112 8.01169 13.7532 8.18591 13.637 8.53437L13.2651 9.65M21.0646 5.43797L17.23 9.27253C16.9703 9.53225 16.8405 9.66211 16.6973 9.7738C16.5284 9.90554 16.3456 10.0185 16.1522 10.1106C15.9883 10.1888 15.8141 10.2468 15.4656 10.363L14.35 10.7349M14.35 10.7349L13.6281 10.9755C13.4567 11.0327 13.2676 10.988 13.1398 10.8602C13.012 10.7324 12.9673 10.5433 13.0245 10.3719L13.2651 9.65M14.35 10.7349L13.2651 9.65"
+                                        stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                <label for="{{ $field1['id'] }}" class="tf-cropper-drop-zone">
+                                    {{ __('all.drag_and_drop_or_select_a_file') }}
+                                </label>
+                                <p class="tf-cropper-file-info">
+                                    {{ __('all.jpg_gif_png_max_size') }}
+                                </p>
+                                <button type="button" x-on:click.prevent class="tf-cropper-upload">
+                                    {{ __('all.upload') }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div x-show="showCroppie" x-on:click.prevent class="tf-cropper-modal-bg">
+                            <div class="tf-cropper-modal">
+                                <div>
+                                    <div class="m-auto" x-ref="croppie"></div>
+                                    <div class="flex justify-center items-center gap-2">
+                                        <button type="button" class="text-red-600"
+                                                x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
+                                        <button type="button" class="text-custom-600"
+                                                x-on:click.prevent="saveAvatar()"><i data-lucide="save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </x-modal>
+    <x-modal name="update-cover-photo" :show="$errors->isNotEmpty()" focusable max>
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('all.change_cover_photo') }}
+        </h2>
+        <div>
+            <div>
+                <div wire:ignore class="tf-cropper-root">
+                    <div x-data="imageCropper2({
+        width: {{ $field2['width'] }},
+        height: {{ $field2['height'] }},
+        shape: '{{ $field2['shape'] }}',
+        fieldKey: '{{ $field2['id'] }}'
+    })" x-cloak>
+                        <div x-show="!showCroppie && !hasImage">
+                            <input type="file"
+                                   name="{{ $field2['name'] }}"
+                                   id="{{ $field2['id'] }}"
+                                   class="absolute inset-0 z-5 m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
+                                   @if($field2['disabled']) disabled @endif
+                                   x-ref="input"
+                                   x-on:change="updatePreview()"
+                                   x-on:dragover="$el.classList.add('active')"
+                                   x-on:dragleave="$el.classList.remove('active')"
+                                   x-on:drop="$el.classList.remove('active')">
+
+                            {{-- upload icon --}}
+                            <div class="flex flex-col items-center justify-center">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path
+                                        d="M2 12.5001L3.75159 10.9675C4.66286 10.1702 6.03628 10.2159 6.89249 11.0721L11.1822 15.3618C11.8694 16.0491 12.9512 16.1428 13.7464 15.5839L14.0446 15.3744C15.1888 14.5702 16.7369 14.6634 17.7765 15.599L21 18.5001"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path
+                                        d="M18.562 2.9354L18.9791 2.5183C19.6702 1.82723 20.7906 1.82723 21.4817 2.5183C22.1728 3.20937 22.1728 4.32981 21.4817 5.02087L21.0646 5.43797M18.562 2.9354C18.562 2.9354 18.6142 3.82172 19.3962 4.60378C20.1783 5.38583 21.0646 5.43797 21.0646 5.43797M18.562 2.9354L14.7275 6.76995C14.4677 7.02968 14.3379 7.15954 14.2262 7.30273C14.0945 7.47163 13.9815 7.65439 13.8894 7.84776C13.8112 8.01169 13.7532 8.18591 13.637 8.53437L13.2651 9.65M21.0646 5.43797L17.23 9.27253C16.9703 9.53225 16.8405 9.66211 16.6973 9.7738C16.5284 9.90554 16.3456 10.0185 16.1522 10.1106C15.9883 10.1888 15.8141 10.2468 15.4656 10.363L14.35 10.7349M14.35 10.7349L13.6281 10.9755C13.4567 11.0327 13.2676 10.988 13.1398 10.8602C13.012 10.7324 12.9673 10.5433 13.0245 10.3719L13.2651 9.65M14.35 10.7349L13.2651 9.65"
+                                        stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                <label for="{{ $field2['id'] }}" class="tf-cropper-drop-zone">
+                                    {{ __('all.drag_and_drop_or_select_a_file') }}
+                                </label>
+                                <p class="tf-cropper-file-info">
+                                    {{ __('all.jpg_gif_png_max_size') }}
+                                </p>
+                                <button type="button" x-on:click.prevent class="tf-cropper-upload">
+                                    {{ __('all.upload') }}
+                                </button>
+                            </div>
+
+                        </div>
+
+                        {{-- cropper --}}
+                        <div x-show="showCroppie" x-on:click.prevent class="tf-cropper-modal-bg">
+                            <div class="tf-cropper-modal">
+                                <div>
+                                    <div class="m-auto" x-ref="croppie"></div>
+                                    <div class="flex justify-center items-center gap-2">
+                                        <button type="button" class="text-red-600"
+                                                x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
+                                        <button type="button" class="text-custom-600"
+                                                x-on:click.prevent="saveCover()"><i data-lucide="save"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </x-modal>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('imageCropper2', (config) => ({
+                showCroppie: false,
+                hasImage: false,
+                originalSrc: config.imageUrl,
+                width: config.width,
+                height: config.height,
+                shape: config.shape,
+                fieldKey: config.fieldKey,
+                croppie: {},
+                init() {
+                    this.$nextTick(() => this.initCroppie())
+                },
+                updatePreview() {
+                    let reader, files = this.$refs.input.files
+                    reader = new FileReader()
+                    reader.onload = (e) => {
+                        this.showCroppie = true
+                        this.originalSrc = e.target.result
+                        this.bindCroppie(e.target.result)
+                    }
+                    reader.readAsDataURL(files[0])
+                },
+                initCroppie() {
+                    this.croppie = new Croppie(this.$refs.croppie, {
+                        viewport: {width: this.width, height: this.height, type: this.shape}, //circle or square
+                        boundary: {width: this.width, height: this.height}, //default boundary container
+                        showZoomer: true,
+                        enableResize: false
+                    })
+                },
+                remove() {
+                    this.$refs.input.value = null
+                    this.showCroppie = false
+                    this.hasImage = false
+                    this.$refs.result.src = ""
+                    this.$wire.set(this.fieldKey, '')
+                },
+                saveAvatar() {
+                    this.croppie.result({
+                        type: "base64",
+                        size: "original"
+                    }).then((croppedImage) => {
+                        // this.$wire.set('profile_picture', croppedImage)
+                        Livewire.dispatch('saveProfilePhoto', {'image':croppedImage});
+                        this.$dispatch('close-modal', 'update-profile-avatar');
+                    })
+                },
+                saveCover() {
+                    this.croppie.result({
+                        type: "base64",
+                        size: "original"
+                    }).then((croppedImage) => {
+                        // this.$wire.set('cover_photo', croppedImage)
+                        Livewire.dispatch('saveCoverPhoto', {'image':croppedImage});
+                        this.$dispatch('close-modal', 'update-cover-photo');
+                    })
+                },
+                bindCroppie(src) { //avoid problems with croppie container not being visible when binding
+                    setTimeout(() => {
+                        this.croppie.bind({url: src})
+                    }, 200)
+                }
+            }))
+        })
+    </script>
 </div>
