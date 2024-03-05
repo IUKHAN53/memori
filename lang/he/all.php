@@ -219,4 +219,5 @@ return [
     'donation_url' => 'כתובת URL לתרומה:',
     'confirm_and_close' => 'אשר וסגור',
     'Admins' => 'מנהלים',
+    'google_maps_link' => 'קישור ל-Google Maps',
 ];

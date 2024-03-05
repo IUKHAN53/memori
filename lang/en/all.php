@@ -220,4 +220,5 @@ return [
 
     'confirm_and_close' => 'Confirm and Close',
     'Admins' => 'Admins',
+    'google_maps_link' => 'Google Maps Link',
 ];

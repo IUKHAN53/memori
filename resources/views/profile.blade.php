@@ -202,14 +202,14 @@
                                     {{__('all.details')}}
                                 </a>
                             </li>
-{{--                            @if( auth()->user()->id == $profile->user_id)--}}
-{{--                                <li class="group">--}}
-{{--                                    <a href="javascript:void(0);" data-tab-toggle data-target="admin_settings"--}}
-{{--                                       class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">--}}
-{{--                                        {{__('all.Admins')}}--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            @endif--}}
+                            {{--                            @if( auth()->user()->id == $profile->user_id)--}}
+                            {{--                                <li class="group">--}}
+                            {{--                                    <a href="javascript:void(0);" data-tab-toggle data-target="admin_settings"--}}
+                            {{--                                       class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">--}}
+                            {{--                                        {{__('all.Admins')}}--}}
+                            {{--                                    </a>--}}
+                            {{--                                </li>--}}
+                            {{--                            @endif--}}
                         </ul>
 
                         <div class="mt-5 tab-content">
@@ -231,11 +231,20 @@
                                 <div class="flex flex-col gap-3">
                                     <h6 class="py-3">{{__('all.cemetery_information')}}</h6>
                                     <div class="flex flex-col md:flex-row gap-3">
-                                        <h6{{__('all.obituary_link')}}</h6>
-                                        <a target="_blank"
-                                           href="{{$profile->obituary_link}}"
-                                           style="text-decoration: underline;">{{__('all.see_obituary')}}</a>
+                                        <div>
+                                            <h6{{__('all.obituary_link')}}</h6>
+                                            <a target="_blank"
+                                               href="{{$profile->obituary_link}}"
+                                               style="text-decoration: underline;">{{__('all.see_obituary')}}</a>
+                                        </div>
                                     </div>
+                                    @if($profile->cemetery_lat)
+                                        <div>
+                                            <iframe width='100%' height='400px' frameborder='0' style='border:0'
+                                                    src='https://www.google.com/maps?q={{$profile->cemetery_lat}},{{$profile->cemetery_lng}}&hl=es;z=14&amp;output=embed'
+                                                    allowfullscreen></iframe>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
