@@ -37,7 +37,7 @@
                  x-transition:leave="transition ease-in duration-200 transform"
                  x-transition:leave-start="opacity-100"
                  x-transition:leave-end="opacity-0"
-                 class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true">
+                 class="fixed inset-0 transition-opacity bg-opacity-40" aria-hidden="true"  style="background-color: #6B7280">
             </div>
 
             <!-- Modal -->

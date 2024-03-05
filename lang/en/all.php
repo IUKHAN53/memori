@@ -97,6 +97,7 @@ return [
     'change_password' => 'Change Password',
     'personal_details' => 'Personal Details',
     'location_details' => 'Location Details',
+    'location_b4_death' => 'Location before death',
     'city' => 'City',
     'country' => 'Country',
     'save_changes' => 'Save Changes',
@@ -181,7 +182,6 @@ return [
     'dont_have_account' => "Don't have an account?",
     'qr_added_to_account' => 'QR will be added to your account which can be assigned later to a profile.',
     'verify_qr' => 'Verify QR',
-    'cemetery_information' => 'Cemetery Information',
     'obituary_link' => 'Obituary Link',
     'see_obituary' => 'See Obituary',
     'bio' => 'Bio',
@@ -204,4 +204,20 @@ return [
     'buy_qr_codes' => 'Buy QR Codes',
     'are_you_sure_remove_video' => 'Are you sure you want to remove this video?',
     'are_you_sure_remove_photo' => 'Are you sure you want to remove this photo?',
+
+    'cemetery_information' => 'Cemetery Information',
+    'cemetery_name' => 'Cemetery Name:',
+    'cemetery_plot_number' => 'Cemetery Plot Number:',
+    'cemetery_city' => 'Cemetery City:',
+    'cemetery_state' => 'Cemetery State:',
+    'cemetery_plot_location' => 'Cemetery Plot Location:',
+    'cemetery_set_location' => 'Set Location',
+    'cemetery_no_location_selected' => 'No Location Selected',
+    'set_plot_location' => 'Set cemetery plot location',
+
+    'donations' => 'Donations',
+    'donation_url' => 'Donation URL:',
+
+    'confirm_and_close' => 'Confirm and Close',
+    'Admins' => 'Admins',
 ];

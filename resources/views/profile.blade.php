@@ -16,7 +16,8 @@
                             <img src="{{$profile->profile_picture}}"
                                  id="avatarImage" class="h-24 w-24 rounded-full object-cover" alt="Avatar"/>
                             <div>
-                                <div class="font-medium text-md">{{$profile->heading_text ?? 'In loving memory of'}}</div>
+                                <div
+                                    class="font-medium text-md">{{$profile->heading_text ?? 'In loving memory of'}}</div>
                                 <div class="font-medium text-lg">{{$profile->full_name}}</div>
                                 <div class="text-gray-500">
                                     <strong>Lifetime:</strong> {{\Carbon\Carbon::parse($profile->date_of_birth)->format('d/m/Y')}}
@@ -201,6 +202,14 @@
                                     {{__('all.details')}}
                                 </a>
                             </li>
+{{--                            @if( auth()->user()->id == $profile->user_id)--}}
+{{--                                <li class="group">--}}
+{{--                                    <a href="javascript:void(0);" data-tab-toggle data-target="admin_settings"--}}
+{{--                                       class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">--}}
+{{--                                        {{__('all.Admins')}}--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
                         </ul>
 
                         <div class="mt-5 tab-content">
@@ -236,7 +245,7 @@
         </div>
     </section>
     <script>
-        document.getElementById('copyButton').addEventListener('click', function() {
+        document.getElementById('copyButton').addEventListener('click', function () {
             let copyText = document.getElementById('inputText');
             copyText.select();
             copyText.setSelectionRange(0, 99999);

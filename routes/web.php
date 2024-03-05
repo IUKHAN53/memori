@@ -13,9 +13,8 @@ Route::get('/buser', function () {
     auth()->login($user);
     return redirect()->route('home');
 });
-Route::get('/', function () {
-    return redirect()->route('home');
-});
+
+Route::view('/', 'welcome')->name('welcome');
 
 Route::post('switch-language', [\App\Http\Controllers\SiteController::class, 'switchLanguage'])->name('switch-language');
 

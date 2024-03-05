@@ -33,6 +33,12 @@ class ProfileForm extends Form
     public $date_of_birth;
     #[Validate('required|date|after:date_of_birth')]
     public $date_of_death;
+    public $cemetery_name;
+    public $cemetery_plot;
+    public $cemetery_city;
+    public $cemetery_state;
+    public $cemetery_lat;
+    public $cemetery_lng;
 
     public $user_id;
 
@@ -73,6 +79,18 @@ class ProfileForm extends Form
         $this->date_of_birth = $profile->date_of_birth;
 
         $this->date_of_death = $profile->date_of_death;
+
+        $this->cemetery_name = $profile->cemetery_name;
+
+        $this->cemetery_plot = $profile->cemetery_plot;
+
+        $this->cemetery_city = $profile->cemetery_city;
+
+        $this->cemetery_state = $profile->cemetery_state;
+
+        $this->cemetery_lat = $profile->cemetery_lat;
+
+        $this->cemetery_lng = $profile->cemetery_lng;
 
         $this->user_id = $profile->user_id;
     }

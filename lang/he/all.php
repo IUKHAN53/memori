@@ -97,6 +97,7 @@ return [
     'change_password' => 'שנה סיסמא',
     'personal_details' => 'פרטים אישיים',
     'location_details' => 'פרטי מיקום',
+    'location_b4_death' => 'מיקום לפני המוות',
     'city' => 'עיר',
     'country' => 'מדינה',
     'save_changes' => 'שמור שינויים',
@@ -204,4 +205,18 @@ return [
     'heading_text' => 'טקסט כותרת',
     'are_you_sure_remove_video' => 'האם אתה בטוח שברצונך להסיר סרטון זה?',
     'are_you_sure_remove_photo' => 'האם אתה בטוח שברצונך להסיר תמונה זו?',
+
+    'cemetery_name' => 'שם הבית קברות:',
+    'cemetery_plot_number' => 'מספר חלקת הקבורה:',
+    'cemetery_city' => 'עיר הבית קברות:',
+    'cemetery_state' => 'מדינת הבית קברות:',
+    'cemetery_plot_location' => 'מיקום חלקת הקבורה:',
+    'cemetery_set_location' => 'הגדר מיקום',
+    'cemetery_no_location_selected' => 'לא נבחר מיקום',
+    'set_plot_location' => 'הגדר מיקום חלקת הקבורה',
+
+    'donations' => 'תרומות',
+    'donation_url' => 'כתובת URL לתרומה:',
+    'confirm_and_close' => 'אשר וסגור',
+    'Admins' => 'מנהלים',
 ];

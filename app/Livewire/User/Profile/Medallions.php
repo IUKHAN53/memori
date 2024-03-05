@@ -27,6 +27,10 @@ class Medallions extends Component
     public $field1;
     public $field2;
 
+    public $lat = -25.344;
+    public $lng = 131.031;
+    public $cemetery_plot_location;
+
 //    protected $listeners = ['saveProfileImage', 'saveCoverPhoto'];
 
     public function showListScreen()
@@ -42,6 +46,9 @@ class Medallions extends Component
             $this->form->setProfile($existing);
             $this->profile_picture = $existing->profile_picture ?? $this->getPlaceholderImage('profile_picture');
             $this->cover_photo = $existing->cover ?? $this->getPlaceholderImage('cover_photo');
+            $this->lat = $existing->cemetery_lat;
+            $this->lng = $existing->cemetery_lng;
+            $this->cemetery_plot_location = 'latitude: '. $this->lat . ', longitude: ' . $this->lng;
             $this->editing = true;
         } else {
             $this->form->reset();
@@ -135,6 +142,16 @@ class Medallions extends Component
     public function saveProfilePhoto($image)
     {
         $this->profile_picture = $image;
+    }
+
+    #[On('setCoordinates')]
+    public function setCoordinates($coordinates)
+    {
+        $this->lat = $coordinates['latitude'];
+        $this->lng = $coordinates['longitude'];
+        $this->form->cemetery_lat = $this->lat;
+        $this->form->cemetery_lng = $this->lng;
+        $this->cemetery_plot_location = 'latitude: '. $this->lat . ', longitude: ' . $this->lng;
     }
 
     #[On('saveCoverPhoto')]

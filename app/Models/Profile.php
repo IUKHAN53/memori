@@ -28,6 +28,12 @@ class Profile extends Model
         'quote_text',
         'date_of_birth',
         'date_of_death',
+        'cemetery_name',
+        'cemetery_plot',
+        'cemetery_city',
+        'cemetery_state',
+        'cemetery_lat',
+        'cemetery_lng',
         'user_id',
     ];
 

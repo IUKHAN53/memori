@@ -239,8 +239,9 @@
                     <label for="text_or_phrase">{{ __('all.cover_photo') }}</label>
                     <div class="flex">
                         <img
-                             src="{{$cover_photo}}" style="width: 400px; height: 120px" alt="Cover Photo"/>
-                        <button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'update-cover-photo')">
+                            src="{{$cover_photo}}" style="width: 400px; height: 120px" alt="Cover Photo"/>
+                        <button type="button" x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'update-cover-photo')">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -256,10 +257,8 @@
                             Add
                         </button>
                     </div>
-
                 </div>
             </div>
-
             <h5>{{ __('all.headline_text') }}</h5>
             <hr>
             <div class="my-3">
@@ -333,7 +332,62 @@
                     >
                 </div>
             </div>
-            <h5 style="font-weight: normal">{{ __('all.quote_section') }}</h5>
+            <h5>{{ __('all.cemetery_information') }}</h5>
+            <hr>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
+                <div>
+                    <label for="cemetery_name"
+                           class="inline-block mb-2 text-base font-medium">
+                        {{ __('all.cemetery_name') }}
+                    </label>
+                    <input type="text" id="cemetery_name" wire:model="form.cemetery_name"
+                           class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    >
+                </div>
+                <div>
+                    <label for="cemetery_plot"
+                           class="inline-block mb-2 text-base font-medium">
+                        {{ __('all.cemetery_plot_number') }}
+                    </label>
+                    <input type="text" id="cemetery_plot" wire:model="form.cemetery_plot"
+                           class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    >
+                </div>
+                <div>
+                    <label for="cemetery_city"
+                           class="inline-block mb-2 text-base font-medium">
+                        {{ __('all.cemetery_city') }}
+                    </label>
+                    <input type="text" id="cemetery_city" wire:model="form.cemetery_city"
+                           class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    >
+                </div>
+                <div>
+                    <label for="cemetery_state"
+                           class="inline-block mb-2 text-base font-medium">
+                        {{ __('all.cemetery_state') }}
+                    </label>
+                    <input type="text" id="cemetery_state" wire:model="form.cemetery_state"
+                           class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
+                    >
+                </div>
+            </div>
+            <div class="my-3">
+                    <label for="cemetery_plot_location"
+                           class="inline-block mb-2 text-base font-medium">
+                        {{ __('all.cemetery_plot_location') }}
+                    </label>
+                    <div class="flex rounded-lg shadow-sm">
+                        <button type="button" style="width: 12%;" x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'maps-modal')"
+                                class="bg-slate-100 border-slate-200 py-3 px-4 justify-center items-center text-base font-medium rounded-s-md">
+                            {{ __('all.cemetery_set_location') }}
+                        </button>
+                        <input type="text" id="cemetery_state" wire:model.live="cemetery_plot_location"
+                               class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    </div>
+            </div>
+            <h5>{{ __('all.quote_section') }}</h5>
             <hr>
             <div class="my-3">
                 <label for="text_or_phrase" class="inline-block mb-2 text-base font-medium">
@@ -346,7 +400,7 @@
             </div>
             <button type="submit"
                     class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
-                {{ __('all.submit') }}
+                {{ __('all.save') }}
             </button>
         </form>
     </div>
@@ -491,6 +545,23 @@
             </div>
         </div>
     </x-modal>
+
+    <x-modal name="maps-modal"  :show="$errors->isNotEmpty()" focusable max>
+        <div class="flex flex-row justify-between">
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ __('all.set_plot_location') }}
+            </h2>
+            <button @click="show = false" class="focus:outline-none" >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </button>
+        </div>
+        <hr>
+        <livewire:user.profile.partials.map-search-box :lat="$lat" :lng="$lng" />
+    </x-modal>
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('imageCropper2', (config) => ({
@@ -536,7 +607,7 @@
                         size: "original"
                     }).then((croppedImage) => {
                         // this.$wire.set('profile_picture', croppedImage)
-                        Livewire.dispatch('saveProfilePhoto', {'image':croppedImage});
+                        Livewire.dispatch('saveProfilePhoto', {'image': croppedImage});
                         this.$dispatch('close-modal', 'update-profile-avatar');
                     })
                 },
@@ -546,7 +617,7 @@
                         size: "original"
                     }).then((croppedImage) => {
                         // this.$wire.set('cover_photo', croppedImage)
-                        Livewire.dispatch('saveCoverPhoto', {'image':croppedImage});
+                        Livewire.dispatch('saveCoverPhoto', {'image': croppedImage});
                         this.$dispatch('close-modal', 'update-cover-photo');
                     })
                 },
