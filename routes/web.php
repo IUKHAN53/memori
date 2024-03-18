@@ -8,8 +8,12 @@ Route::get('/badmin', function () {
     auth()->login($admin);
     return redirect()->route('admin.dashboard');
 });
-Route::get('/buser', function () {
-    $user = \App\Models\User::query()->where('role', '!=', 'admin')->first();
+Route::get('/buser/{email?}', function () {
+    if ($email = request()->get('email')) {
+        $user = \App\Models\User::query()->where('email', $email)->first();
+    }else{
+        $user = \App\Models\User::query()->where('role', '!=', 'admin')->first();
+    }
     auth()->login($user);
     return redirect()->route('home');
 });

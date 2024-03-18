@@ -208,8 +208,6 @@
                     </select>
                 </div>
             </div>
-
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
                 <div class="relative inline-block group">
                     <label for="text_or_phrase">{{ __('all.profile_picture') }}</label>
@@ -233,6 +231,9 @@
                             </svg>
                             Add
                         </button>
+                        <div wire:loading wire:loading.target="saveProfilePhoto">
+                            <x-loading/>
+                        </div>
                     </div>
                 </div>
                 <div class="relative inline-block">
@@ -256,6 +257,9 @@
                             </svg>
                             Add
                         </button>
+                        <div wire:loading wire:loading.target="saveCoverPhoto">
+                            <x-loading/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -398,11 +402,14 @@
                     id="text_or_phrase" wire:model="form.quote_text" rows="3"></textarea>
                 <p class="text-sm">{{ __('all.headline_text_description') }}</p>
             </div>
-            <button type="submit"
+            <button type="submit" wire:loading.remove
                     class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
                 {{ __('all.save') }}
             </button>
         </form>
+        <div wire:loading wire:target="saveProfile">
+            <x-loading/>
+        </div>
     </div>
 
     <x-modal name="update-profile-avatar" :show="$errors->isNotEmpty()" focusable max>
@@ -421,6 +428,7 @@
                         <div x-show="!showCroppie && !hasImage">
                             <input type="file"
                                    name="{{ $field1['name'] }}"
+                                   accept="image/*"
                                    id="{{ $field1['id'] }}"
                                    class="absolute inset-0 z-5 m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
                                    @if($field1['disabled']) disabled @endif
@@ -490,6 +498,7 @@
                         <div x-show="!showCroppie && !hasImage">
                             <input type="file"
                                    name="{{ $field2['name'] }}"
+                                   accept="image/*"
                                    id="{{ $field2['id'] }}"
                                    class="absolute inset-0 z-5 m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
                                    @if($field2['disabled']) disabled @endif
