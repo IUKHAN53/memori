@@ -72,7 +72,9 @@ class User extends Authenticatable
 
     public function hasQRCodes()
     {
-        $this->QrCodeUsers()->exists();
+        return $this->QrCodeUsers()->whereHas('qrCode',function ($q){
+            $q->where('is_assigned',false);
+        })->exists();
     }
 
     public function favourites()

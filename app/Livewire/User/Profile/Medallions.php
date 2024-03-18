@@ -23,6 +23,8 @@ class Medallions extends Component
 
     public $profile_picture;
     public $cover_photo;
+    public $profile_picture_changed = false;
+    public $cover_photo_changed = false;
     public ProfileForm $form;
     public $field1;
     public $field2;
@@ -51,10 +53,13 @@ class Medallions extends Component
             $this->cemetery_plot_location = 'latitude: '. $this->lat . ', longitude: ' . $this->lng;
             $this->editing = true;
         } else {
+            $this->profile_picture = $this->getPlaceholderImage('profile_picture');
+            $this->cover_photo = $this->getPlaceholderImage('cover_photo');
             $this->form->reset();
         }
         $this->list_screen = false;
         $this->add_screen = true;
+        $this->reset('profile_picture_changed', 'cover_photo_changed');
     }
 
 
@@ -65,15 +70,15 @@ class Medallions extends Component
 
     public function saveProfile()
     {
-        if ($this->profile_picture) {
+        if ($this->profile_picture_changed ) {
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $this->profile_picture));
             $fileName = 'profiles/avatars/profile-image-' . time() . '.png';
             Storage::disk('public')->put($fileName, $imageData, 'public');
             $this->form->picture = $fileName;
         }
-        if ($this->cover_photo) {
+        if ($this->cover_photo_changed) {
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $this->cover_photo));
-            $fileName = 'profiles/covers/profile-image-' . time() . '.png';
+            $fileName = 'profiles/covers/profile-cover-' . time() . '.png';
             Storage::disk('public')->put($fileName, $imageData, 'public');
             $this->form->cover_photo = $fileName;
         }
@@ -144,6 +149,12 @@ class Medallions extends Component
         $this->profile_picture = $image;
     }
 
+    #[On('saveCoverPhoto')]
+    public function saveCoverPhoto($image)
+    {
+        $this->cover_photo = $image;
+    }
+
     #[On('setCoordinates')]
     public function setCoordinates($coordinates)
     {
@@ -152,12 +163,6 @@ class Medallions extends Component
         $this->form->cemetery_lat = $this->lat;
         $this->form->cemetery_lng = $this->lng;
         $this->cemetery_plot_location = 'latitude: '. $this->lat . ', longitude: ' . $this->lng;
-    }
-
-    #[On('saveCoverPhoto')]
-    public function saveCoverPhoto($image)
-    {
-        $this->cover_photo = $image;
     }
 
     private function getPlaceholderImage(string $string)

@@ -26,7 +26,7 @@ class ProfileForm extends Form
     public $obituary_link;
     public $bio;
     public $heading_text;
-    public $include_heading_text;
+    public $include_heading_text = false;
     public $quote_text;
 
     #[Validate('required|date|before:today')]
@@ -72,7 +72,7 @@ class ProfileForm extends Form
 
         $this->heading_text = $profile->heading_text;
 
-        $this->include_heading_text = $profile->include_heading_text;
+        $this->include_heading_text = $profile->include_heading_text ?? false;
 
         $this->quote_text = $profile->quote_text;
 
@@ -108,7 +108,7 @@ class ProfileForm extends Form
     {
         $this->validate();
         $this->profile->update(
-            $this->all()
+            $this->except('profile')
         );
         $this->reset('');
     }

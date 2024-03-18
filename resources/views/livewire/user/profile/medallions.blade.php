@@ -400,7 +400,6 @@
                 <textarea
                     class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                     id="text_or_phrase" wire:model="form.quote_text" rows="3"></textarea>
-                <p class="text-sm">{{ __('all.headline_text_description') }}</p>
             </div>
             <button type="submit" wire:loading.remove
                     class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
@@ -471,7 +470,7 @@
                                     <div class="flex justify-center items-center gap-2">
                                         <button type="button" class="text-red-600"
                                                 x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
-                                        <button type="button" class="text-custom-600"
+                                        <button type="button" class="text-custom-600" wire:click="$toggle('profile_picture_changed')"
                                                 x-on:click.prevent="saveAvatar()"><i data-lucide="save"></i></button>
                                     </div>
                                 </div>
@@ -541,7 +540,7 @@
                                 <div>
                                     <div class="m-auto" x-ref="croppie"></div>
                                     <div class="flex justify-center items-center gap-2">
-                                        <button type="button" class="text-red-600"
+                                        <button type="button" class="text-red-600" wire:click="$toggle('profile_photo_changed')"
                                                 x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
                                         <button type="button" class="text-custom-600"
                                                 x-on:click.prevent="saveCover()"><i data-lucide="save"></i></button>

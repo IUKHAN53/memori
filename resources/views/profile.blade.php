@@ -16,8 +16,10 @@
                             <img src="{{$profile->profile_picture}}"
                                  id="avatarImage" class="h-24 w-24 rounded-full object-cover" alt="Avatar"/>
                             <div>
-                                <div
-                                    class="font-medium text-md">{{$profile->heading_text ?? ''}}</div>
+                                @if(!$profile->include_heading_text AND $profile->heading_text)
+                                    <div
+                                        class="font-medium text-md">{{$profile->heading_text ?? ''}}</div>
+                                @endif
                                 <div class="font-medium text-lg">{{$profile->full_name}}</div>
                                 <div class="text-gray-500">
                                     <strong>Lifetime:</strong> {{\Carbon\Carbon::parse($profile->date_of_birth)->format('d/m/Y')}}
