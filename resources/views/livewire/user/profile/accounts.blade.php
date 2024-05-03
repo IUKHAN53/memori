@@ -70,6 +70,11 @@
             {{ __('all.save_changes') }}
         </button>
     </div>
+    <x-action-message class="me-3" on="profile-updated">
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <span class="font-medium">{{__('all.profile_updated')}}</span>
+        </div>
+    </x-action-message>
 
     <x-modal name="update-password" :show="$errors->isNotEmpty()" focusable>
         <form wire:submit="updatePassword" class="p-6">
@@ -101,6 +106,11 @@
                     {{ __('all.change_account_password') }}
                 </button>
             </div>
+            <x-action-message class="me-3" on="password-updated">
+                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <span class="font-medium">{{__('all.password_updated')}}</span>
+                </div>
+            </x-action-message>
         </form>
     </x-modal>
 

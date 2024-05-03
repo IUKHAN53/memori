@@ -6,7 +6,9 @@
                     <div class="grid items-center grid-cols-1 gap-6 mt-20 md:grid-cols-2 mb-5">
                         <div class="flex justify-start items-center flex-col md:flex-row gap-3">
                             <div class="relative inline-block">
-                                <img
+                                <img wire:loading wire:target="profileImage" src="{{asset('assets/images/loading.svg')}}"
+                                     class="h-24 w-24 rounded-full object-cover" alt="Avatar"/>
+                                <img wire:loading.remove wire:target="profileImage"
                                     src="{{auth()->user()->picture}}"
                                     class="h-24 w-24 rounded-full object-cover" alt="Avatar"/>
                                 <label for="imageUpload" x-data=""
@@ -28,7 +30,8 @@
                             </div>
                             <div>
                                 <div class="font-medium text-lg">{{auth()->user()->name}}</div>
-                                <div class="text-gray-500">{{__('all.Joined')}} {{auth()->user()->created_at->diffForHumans()}}</div>
+                                <div
+                                    class="text-gray-500">{{__('all.Joined')}} {{auth()->user()->created_at->diffForHumans()}}</div>
                             </div>
                         </div>
                         <div class="flex justify-end items-end">
@@ -98,6 +101,7 @@
             </div>
         </div>
     </section>
+
     <x-modal name="update-profile-image" :show="$errors->isNotEmpty()" focusable max>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('all.change_profile_picture') }}
@@ -115,14 +119,14 @@
                             <input type="file"
                                    name="{{ $field['name'] }}"
                                    id="{{ $field['id'] }}"
+                                   accept="image/jpeg,image/png,image/gif"
                                    class="absolute inset-0 z-5 m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
                                    @if($field['disabled']) disabled @endif
                                    x-ref="input"
-                                   x-on:change="updatePreview()"
+                                   x-on:change="updatePreview();"
                                    x-on:dragover="$el.classList.add('active')"
                                    x-on:dragleave="$el.classList.remove('active')"
                                    x-on:drop="$el.classList.remove('active')">
-
                             {{-- upload icon --}}
                             <div class="flex flex-col items-center justify-center">
                                 <svg width="60" height="60" viewBox="0 0 24 24" fill="none"
@@ -147,7 +151,6 @@
                                     {{ __('all.upload') }}
                                 </button>
                             </div>
-
                         </div>
 
                         {{-- cropper --}}
@@ -164,6 +167,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,14 +187,19 @@
                     this.$nextTick(() => this.initCroppie())
                 },
                 updatePreview() {
-                    let reader, files = this.$refs.input.files
-                    reader = new FileReader()
-                    reader.onload = (e) => {
-                        this.showCroppie = true
-                        this.originalSrc = e.target.result
-                        this.bindCroppie(e.target.result)
+                    const files = this.$refs.input.files;
+                    if (files.length > 0) {
+                        let reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.showCroppie = true;
+                            this.originalSrc = e.target.result;
+                            this.bindCroppie(e.target.result);
+                        };
+                        reader.onerror = () => {
+                            alert('Failed to read the file.');
+                        };
+                        reader.readAsDataURL(files[0]);
                     }
-                    reader.readAsDataURL(files[0])
                 },
                 initCroppie() {
                     this.croppie = new Croppie(this.$refs.croppie, {

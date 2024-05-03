@@ -2,6 +2,8 @@
 
 namespace App\Livewire\User\Profile;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -66,6 +68,7 @@ class Accounts extends Component
             'city' => $this->city,
             'country' => $this->country,
         ]);
+        $this->dispatch('profile-updated');
 
     }
 }

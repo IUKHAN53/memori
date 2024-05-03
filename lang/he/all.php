@@ -220,4 +220,7 @@ return [
     'confirm_and_close' => 'אשר וסגור',
     'Admins' => 'מנהלים',
     'google_maps_link' => 'קישור ל-Google Maps',
+
+    'password_updated' => 'עודכן! הסיסמה עודכנה.',
+    'profile_updated' => 'עודכן! הפרופיל עודכן.',
 ];

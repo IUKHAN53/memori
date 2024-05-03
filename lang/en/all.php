@@ -221,4 +221,7 @@ return [
     'confirm_and_close' => 'Confirm and Close',
     'Admins' => 'Admins',
     'google_maps_link' => 'Google Maps Link',
+
+    'password_updated' => 'Updated! Password has been updated.',
+    'profile_updated' => 'Updated! Profile has been updated.',
 ];

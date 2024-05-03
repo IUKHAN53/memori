@@ -17,6 +17,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"
             integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig=="
             crossorigin="anonymous"></script>
+    <style>
+        #loadingSpinner {
+            position: fixed;  /* Fixed position to stay in place during scrolling */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 1050; /* High z-index to be on top of other content */
+        }
+
+        .spinner-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 100px;  /* Adjust size as needed */
+            height: 100px;
+        }
+    </style>
 </head>
 <body class="text-base bg-white text-body font-public dark:text-zink-50 dark:bg-zink-800">
 <nav
