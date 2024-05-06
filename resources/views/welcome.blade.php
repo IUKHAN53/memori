@@ -1,5 +1,13 @@
 <x-app-layout>
+
     <section class="relative pb-36 pt-44" id="">
+        @if (session('success'))
+            <div style="max-width:700px" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative container"
+                 role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
         <div class="container 2xl:max-w-[87.5rem] px-4 mx-auto">
             <div class="grid grid-cols-12 2xl:grid-cols-2">
                 <div class="col-span-12 lg:col-span-7 2xl:col-span-1">
@@ -9,11 +17,11 @@
                         an account or sign in below.</p>
                     <div class="flex items-center gap-2">
                         <a type="button" href="{{route('register')}}"
-                                class="py-2.5 px-6 text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
+                           class="py-2.5 px-6 text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
                             Register
                         </a>
                         <a type="button" href="{{route('login')}}"
-                                class="py-2.5 px-6 text-red-500 bg-white border-red-500 border-dashed btn hover:text-red-500 hover:bg-red-50 hover:border-red-600 focus:text-red-600 focus:bg-red-50 focus:border-red-600 active:text-red-600 active:bg-red-50 active:border-red-600 dark:bg-zink-800 dark:ring-red-400/20 dark:hover:bg-red-800/20 dark:focus:bg-red-800/20 dark:active:bg-red-800/20">
+                           class="py-2.5 px-6 text-red-500 bg-white border-red-500 border-dashed btn hover:text-red-500 hover:bg-red-50 hover:border-red-600 focus:text-red-600 focus:bg-red-50 focus:border-red-600 active:text-red-600 active:bg-red-50 active:border-red-600 dark:bg-zink-800 dark:ring-red-400/20 dark:hover:bg-red-800/20 dark:focus:bg-red-800/20 dark:active:bg-red-800/20">
                             <span class="align-middle">Sign In</span>
                         </a>
                     </div>

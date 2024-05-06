@@ -35,6 +35,7 @@ class Profile extends Model
         'cemetery_lat',
         'cemetery_lng',
         'user_id',
+        'is_public',
     ];
 
     protected $appends = ['full_name'];
@@ -42,6 +43,18 @@ class Profile extends Model
         'date_of_birth' => 'date',
         'date_of_death' => 'date',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($profile) {
+            ProfileUsers::create([
+                'profile_id' => $profile->id,
+                'user_id' => $profile->user_id,
+                'is_owner' => true,
+                'can_edit' => true,
+            ]);
+        });
+    }
 
     public function user()
     {
@@ -79,6 +92,11 @@ class Profile extends Model
         return $this->date_of_death->diffInYears($this->date_of_birth);
     }
 
+    public function getCemeteryAddressAttribute()
+    {
+        return $this->cemetery_name . ', ' . $this->cemetery_plot . ', ' . $this->cemetery_city . ', ' . $this->cemetery_state;
+    }
+
     public function photos()
     {
         return $this->hasMany(ProfileImages::class);
@@ -93,4 +111,20 @@ class Profile extends Model
     {
         return $this->hasMany(ProfileTributes::class);
     }
+
+    public function invites()
+    {
+        return $this->hasMany(ProfileInvite::class);
+    }
+
+    public function profileUsers()
+    {
+        return $this->hasMany(ProfileUsers::class);
+    }
+
+    public function canEdit()
+    {
+        return $this->profileUsers()->where('user_id', auth()->id())->where('can_edit', true)->exists();
+    }
+
 }

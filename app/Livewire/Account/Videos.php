@@ -17,7 +17,7 @@ class Videos extends Component
     public function mount(Profile $profile)
     {
         $this->profile = $profile;
-        $this->can_add = $profile->user_id === auth()->id();
+        $this->can_add = $profile->canEdit();
     }
 
     public function render()

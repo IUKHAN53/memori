@@ -25,12 +25,14 @@ Route::post('switch-language', [\App\Http\Controllers\SiteController::class, 'sw
 Route::view('home', 'home')->middleware(['auth', 'verified'])->name('home');
 
 Route::get('profile/{id}', [ProfileController::class, 'view'])->name('profile.show');
+Route::get('profile-invite/{token}', [ProfileController::class, 'acceptInvite'])->name('profile.invite.accept');
 
 Route::get('/qr-assignment/{identifier}', \App\Livewire\QrAssignment::class)->name('qr-assignment');
 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('mark-favourite/{id}', [\App\Http\Controllers\ProfileController::class, 'markFavourite'])->name('mark-favourite');
+    Route::get('change-status/{id}', [\App\Http\Controllers\ProfileController::class, 'changeVisibility'])->name('change-status');
 });
 
 Route::prefix('admin')->middleware(['auth'])->as('admin.')->group(function () {

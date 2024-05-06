@@ -540,9 +540,9 @@
                                 <div>
                                     <div class="m-auto" x-ref="croppie"></div>
                                     <div class="flex justify-center items-center gap-2">
-                                        <button type="button" class="text-red-600" wire:click="$toggle('profile_photo_changed')"
+                                        <button type="button" class="text-red-600"
                                                 x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
-                                        <button type="button" class="text-custom-600"
+                                        <button type="button" class="text-custom-600" wire:click="$toggle('cover_photo_changed')"
                                                 x-on:click.prevent="saveCover()"><i data-lucide="save"></i></button>
                                     </div>
                                 </div>

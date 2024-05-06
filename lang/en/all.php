@@ -224,4 +224,40 @@ return [
 
     'password_updated' => 'Updated! Password has been updated.',
     'profile_updated' => 'Updated! Profile has been updated.',
+
+    'cemetery_address' => 'Cemetery Address',
+
+    'users' => 'Users',
+
+    'invite_user' => 'Invite User',
+    'send_invitation' => 'Send Invitation',
+    'invitation_sent' => 'Invitation Sent',
+    'invitation_sent_message' => 'Invitation has been sent to the user.',
+    'add_a_user_to_profile' => 'Add a user to this profile',
+
+    'app_name' => 'Memori App',
+    'greeting' => 'Hi,',
+    'invitation_text' => 'has invited you to collaborate with them on adding updates to profile. Use the button below to get started:',
+    'accept' => 'Accept',
+    'trouble_with_button' => 'If you’re having trouble with the button above, copy and paste the URL below into your web browser.',
+
+    'invitations'   => 'Invitations',
+    'accepted' => 'Accepted',
+    'pending' =>  'Pending',
+    'status' =>  'Status',
+    'role' =>  'Role',
+
+    'are_you_sure_remove_invitation' => 'Are you sure you want to remove this invitation?',
+    'are_you_sure_remove_user' => 'Are you sure you want to remove this users access?',
+
+    'operation_successful' => 'Operation Successful',
+    'user' => 'User',
+
+    'user_already_has_access' => 'User already has access to this profile.',
+    'user_already_invited' => 'User has already been invited to this profile.',
+    'share_profile' => 'Share Profile',
+    'make_private' => 'Make Private',
+    'make_public' => 'Make Public',
+    'private_profile' => 'Private Profile',
+    'public_profile' => 'Public Profile',
 ];

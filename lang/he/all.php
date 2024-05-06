@@ -223,4 +223,40 @@ return [
 
     'password_updated' => 'עודכן! הסיסמה עודכנה.',
     'profile_updated' => 'עודכן! הפרופיל עודכן.',
+    'cemetery_address' => 'כתובת בית הקברות',
+
+    'users' => 'משתמשים',
+
+    'invite_user' => 'הזמן משתמש',
+    'send_invitation' => 'שלח הזמנה',
+    'invitation_sent' => 'הזמנה נשלחה',
+    'invitation_sent_message' => 'הזמנה נשלחה בהצלחה. המשתמש יקבל דוא"ל עם הזמנה להצטרף לממורי.',
+    'add_a_user_to_profile' => 'הוסף משתמש לפרופיל',
+
+    'app_name' => 'אפליקציית ממורי',
+    'greeting' => 'שלום,',
+    'invitation_text' => 'הזמין אותך לשתף פעולה איתו בהוספת עדכונים לפרופיל. השתמש בכפתור למטה כדי להתחיל:',
+    'accept' => 'לקבל',
+    'trouble_with_button' => 'אם יש לך בעיות עם הכפתור למעלה, העתק והדבק את הכתובת למטה לדפדפן שלך.',
+
+    'invitations' => 'הזמנות',
+    'accepted' => 'התקבל',
+    'pending' => 'ממתין',
+
+    'status' => 'סטטוס',
+    'role' => 'תפקיד',
+
+    'are_you_sure_remove_invitation' => 'האם אתה בטוח שברצונך להסיר הזמנה זו?',
+    'are_you_sure_remove_user' => 'האם אתה בטוח שברצונך להסיר משתמש זה?',
+
+    'operation_successful' => 'הפעולה בוצעה בהצלחה.',
+    'user' => 'משתמש',
+
+    'user_already_has_access' => 'המשתמש כבר מקבל גישה לפרופיל זה.',
+    'user_already_invited' => 'המשתמש כבר הוזמן לפרופיל זה.',
+    'share_profile' => 'שתף פרופיל',
+    'make_private' => 'הפוך לפרטי',
+    'make_public' => 'הפוך לציבורי',
+    'private_profile' => 'פרופיל פרטי',
+    'public_profile' => 'פרופיל ציבורי',
 ];

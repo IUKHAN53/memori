@@ -26,11 +26,39 @@
                                     - {{\Carbon\Carbon::parse($profile->date_of_death)->format('d/m/Y')}}
                                     ({{$profile->age}} Yrs)
                                 </div>
+                                <div>
+                                    @if($profile->is_public)
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-200 text-green-600">
+                                            {{__('all.public_profile')}}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600">
+                                            {{__('all.private_profile')}}
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <div class="flex justify-end items-end">
                             <div
                                 class="flex gap-2 justify-center lg:justify-end xl:justify-end 2xl:justify-end sm:justify-center md:justify-center">
+                                @if(auth()->user()->id == $profile->user_id)
+                                    @if($profile->is_public)
+                                        <a href="{{route('change-status',['id' => $profile->id])}}"
+                                           class="px-3 py-2 bg-red-500 text-white text-xs rounded shadow flex items-center gap-2">
+                                            <i data-lucide="eye-off" class="w-5 h-5"></i>
+                                            {{__('all.make_private')}}
+                                        </a>
+                                    @else
+                                        <a href="{{route('change-status',['id' => $profile->id])}}"
+                                           class="px-3 py-2 bg-custom-500 text-white text-xs rounded shadow flex items-center gap-2">
+                                            <i data-lucide="eye" class="w-5 h-5"></i>
+                                            {{__('all.make_public')}}
+                                        </a>
+                                    @endif
+                                @endif
                                 <button data-modal-target="shareModal"
                                         class="px-3 py-2 bg-yellow-500 text-white text-xs rounded shadow flex items-center gap-2">
                                     <svg class="feather feather-share" fill="none" height="24" stroke="currentColor"
@@ -41,7 +69,7 @@
                                         <polyline points="16 6 12 2 8 6"/>
                                         <line x1="12" x2="12" y1="2" y2="15"/>
                                     </svg>
-                                    Share
+                                    {{__('all.share_profile')}}
                                 </button>
                                 <div id="shareModal" modal-top=""
                                      class="fixed flex flex-col hidden transition-all duration-300 ease-in-out left-2/4 z-drawer -translate-x-2/4 show">
@@ -198,6 +226,14 @@
                                     {{__('all.tributes')}}
                                 </a>
                             </li>
+                            @if(auth()->user()->id == $profile->user_id)
+                                <li class="group">
+                                    <a href="javascript:void(0);" data-tab-toggle data-target="profile-users"
+                                       class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
+                                        {{__('all.users')}}
+                                    </a>
+                                </li>
+                            @endif
                             <li class="group">
                                 <a href="javascript:void(0);" data-tab-toggle data-target="details"
                                    class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 hover:text-custom-500 active:text-custom-500 dark:hover:text-custom-500 dark:active:text-custom-500 dark:group-[.active]:hover:text-custom-500 -mb-[1px]">
@@ -229,9 +265,18 @@
                             <div class="hidden tab-pane" id="tributes">
                                 <livewire:account.tributes :profile="$profile"/>
                             </div>
+                            @if(auth()->user()->id == $profile->user_id)
+                                <div class="hidden tab-pane" id="profile-users">
+                                    <livewire:account.users :profile="$profile"/>
+                                </div>
+                            @endif
                             <div class="hidden tab-pane" id="details">
                                 <div class="flex flex-col gap-3">
                                     <h6 class="py-3">{{__('all.cemetery_information')}}</h6>
+                                    <div class="flex flex-col md:flex-row gap-3">
+                                        <h6>{{__('all.cemetery_address')}}:</h6>
+                                        <p>{{$profile->cemetery_address}}</p>
+                                    </div>
                                     <div class="flex flex-col md:flex-row gap-3">
                                         <div>
                                             <h6{{__('all.obituary_link')}}</h6>

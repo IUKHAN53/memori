@@ -13,6 +13,7 @@ use Usamamuneerchaudhary\Commentify\Traits\HasUserAvatar;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
 //    use HasUserAvatar;
     /**
      * The attributes that are mass assignable.
@@ -50,6 +51,25 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $invitationExists = ProfileInvite::where('email', $user->email)->where('is_accepted', true)->exists();
+            if ($invitationExists) {
+                $invitations = ProfileInvite::where('email', $user->email)->where('is_accepted', true)->get();
+                foreach ($invitations as $invitation) {
+                    ProfileUsers::create([
+                        'profile_id' => $invitation->profile_id,
+                        'user_id' => $user->id,
+                        'is_owner' => false,
+                        'can_edit' => false,
+                    ]);
+                    $invitation->delete();
+                }
+            }
+        });
+    }
+
     public function profiles()
     {
         return $this->hasMany(Profile::class);
@@ -72,8 +92,8 @@ class User extends Authenticatable
 
     public function hasQRCodes()
     {
-        return $this->QrCodeUsers()->whereHas('qrCode',function ($q){
-            $q->where('is_assigned',false);
+        return $this->QrCodeUsers()->whereHas('qrCode', function ($q) {
+            $q->where('is_assigned', false);
         })->exists();
     }
 
