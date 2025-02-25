@@ -262,4 +262,6 @@ return [
     'make_public' => 'הפכו לציבורי',
     'private_profile' => 'פרופיל פרטי',
     'public_profile' => 'פרופיל ציבורי',
+    'edit_post' => 'עריכת פוסט',
+    'crop' => 'חתוך',
 ];

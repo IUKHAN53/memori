@@ -251,7 +251,7 @@
                             <div class="hidden tab-pane" id="bio">
                                 <div class="flex flex-col gap-3">
                                     <h5>הביוגרפיה של {!! $profile->first_name !!} </h5>
-                                    {!! $profile->bio !!}
+                                    {!! nl2br(e($profile->bio)) !!}
                                 </div>
                             </div>
                             <div class="block tab-pane" id="photos">

@@ -31,6 +31,7 @@
             <input type="text" id="first_name" wire:model="first_name"
                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
             >
+            @error('first_name') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
         </div>
         <div>
             <label for="last_name"
@@ -40,6 +41,7 @@
             <input type="text" id="last_name" wire:model="last_name"
                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
             >
+            @error('last_name') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
         </div>
     </div>
     <h5>{{ __('all.location_details') }}</h5>
@@ -53,6 +55,7 @@
             <input type="text" id="city" wire:model="city"
                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
             >
+            @error('city') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
         </div>
         <div>
             <label for="country"
@@ -62,6 +65,7 @@
             <input type="text" id="country" wire:model="country"
                    class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
             >
+            @error('country') <span class="text-red-500 text-xs">{{$message}}</span> @enderror
         </div>
     </div>
     <div class="flex justify-end items-end">
@@ -71,7 +75,8 @@
         </button>
     </div>
     <x-action-message class="me-3" on="profile-updated">
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+             role="alert">
             <span class="font-medium">{{__('all.profile_updated')}}</span>
         </div>
     </x-action-message>
@@ -82,19 +87,24 @@
                 {{ __('all.change_account_password') }}
             </h2>
             <div>
-                <x-input-label for="update_password_current_password" :value="__('all.current_password')" />
-                <x-text-input wire:model="current_password" id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
-                <x-input-error :messages="$errors->get('current_password')" class="mt-2" />
+                <x-input-label for="update_password_current_password" :value="__('all.current_password')"/>
+                <x-text-input wire:model="current_password" id="update_password_current_password"
+                              name="current_password" type="password" class="mt-1 block w-full"
+                              autocomplete="current-password"/>
+                <x-input-error :messages="$errors->get('current_password')" class="mt-2"/>
             </div>
             <div>
-                <x-input-label for="update_password_password" :value="__('all.new_password')" />
-                <x-text-input wire:model="password" id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-input-label for="update_password_password" :value="__('all.new_password')"/>
+                <x-text-input wire:model="password" id="update_password_password" name="password" type="password"
+                              class="mt-1 block w-full" autocomplete="new-password"/>
+                <x-input-error :messages="$errors->get('password')" class="mt-2"/>
             </div>
             <div>
-                <x-input-label for="update_password_password_confirmation" :value="__('all.confirm_password')" />
-                <x-text-input wire:model="password_confirmation" id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                <x-input-label for="update_password_password_confirmation" :value="__('all.confirm_password')"/>
+                <x-text-input wire:model="password_confirmation" id="update_password_password_confirmation"
+                              name="password_confirmation" type="password" class="mt-1 block w-full"
+                              autocomplete="new-password"/>
+                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
             </div>
             <div class="mt-6 flex justify-end gap-2">
                 <x-secondary-button x-on:click="$dispatch('close')">
@@ -107,7 +117,8 @@
                 </button>
             </div>
             <x-action-message class="me-3" on="password-updated">
-                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                     role="alert">
                     <span class="font-medium">{{__('all.password_updated')}}</span>
                 </div>
             </x-action-message>

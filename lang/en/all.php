@@ -260,4 +260,6 @@ return [
     'make_public' => 'Make Public',
     'private_profile' => 'Private Profile',
     'public_profile' => 'Public Profile',
+    'edit_post' => 'Edit Post',
+    'crop' => 'Crop Photo',
 ];

@@ -139,7 +139,7 @@
                                         <button type="button" class="text-red-600"
                                                 wire:click="removeInvitation({{$invitation->id}})"
                                                 wire:confirm="{{__('all.are_you_sure_remove_invitation')}}">
-                                            <i data-lucide="trash"></i>
+                                            <span wire:ignore><i data-lucide="trash"></i></span>
                                         </button>
                                     </td>
                                 </tr>

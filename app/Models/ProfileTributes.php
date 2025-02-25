@@ -14,6 +14,7 @@ class ProfileTributes extends Model
     protected $fillable = [
         'profile_id',
         'tribute',
+        'title',
         'likes',
         'user_id',
     ];

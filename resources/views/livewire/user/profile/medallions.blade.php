@@ -129,13 +129,15 @@
     <div class="{{!$add_screen ? 'hidden' : ''}}">
         <a href="#" wire:click="showListScreen" class="flex mb-5 gap-2" style="padding: 10px 0;">
             <svg fill="#000000" height="14px" width="14px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" style="transform:rotate(180deg);"><g
+                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve"
+                 style="transform:rotate(180deg);"><g
                     id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
                     <path id="XMLID_92_"
                           d="M111.213,165.004L250.607,25.607c5.858-5.858,5.858-15.355,0-21.213c-5.858-5.858-15.355-5.858-21.213,0.001 l-150,150.004C76.58,157.211,75,161.026,75,165.004c0,3.979,1.581,7.794,4.394,10.607l150,149.996 C232.322,328.536,236.161,330,240,330s7.678-1.464,10.607-4.394c5.858-5.858,5.858-15.355,0-21.213L111.213,165.004z"></path>
-                </g></svg><span style="font-size: 14px; line-height: 14px;">חזור</span>
+                </g></svg>
+            <span style="font-size: 14px; line-height: 14px;">חזור</span>
         </a>
         <h4 class="mb-2">{{ __('all.personal_details') }}</h4>
         <hr>
@@ -171,7 +173,8 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
                 <div>
-                    <label for="relationship" class="inline-block mb-2 text-base font-medium">{{ __('all.relationship') }}</label>
+                    <label for="relationship"
+                           class="inline-block mb-2 text-base font-medium">{{ __('all.relationship') }}</label>
                     <select
                         id="relationship"
                         wire:model="form.relationship"
@@ -191,7 +194,8 @@
                              class="h-26 w-28 rounded-full object-cover" alt="Profile Picture"/>
                         <button type="button" x-data=""
                                 class=""
-                                x-on:click.prevent="$dispatch('open-modal', 'update-profile-avatar')" style="margin-right: 1rem;">
+                                x-on:click.prevent="$dispatch('open-modal', 'update-profile-avatar')"
+                                style="margin-right: 1rem;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin: auto;"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -215,9 +219,11 @@
                     <label for="text_or_phrase" class="inline-block my-2">{{ __('all.cover_photo') }}</label>
                     <div class="flex">
                         <img
-                            src="{{$cover_photo}}" style="width: 280px; height: auto; border-radius: 10px;" alt="Cover Photo"/>
+                            src="{{$cover_photo}}" style="width: 280px; height: auto; border-radius: 10px;"
+                            alt="Cover Photo"/>
                         <button type="button" x-data=""
-                                x-on:click.prevent="$dispatch('open-modal', 'update-cover-photo')" style="margin-right: 1rem;">
+                                x-on:click.prevent="$dispatch('open-modal', 'update-cover-photo')"
+                                style="margin-right: 1rem;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin: auto;"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -345,22 +351,23 @@
                 </div>
             </div>
             <div class="my-3">
-                    <label for="cemetery_plot_location"
-                           class="inline-block mb-2 text-base font-medium">
-                        {{ __('all.cemetery_plot_location') }}
-                    </label>
-                    <div class="flex rounded-lg shadow-sm">
-                        <button type="button" style="width: 12%;" x-data=""
-                                x-on:click.prevent="$dispatch('open-modal', 'maps-modal')"
-                                class="bg-slate-100 border-slate-200 py-3 px-4 justify-center items-center text-base font-medium rounded-s-md">
-                            {{ __('all.cemetery_set_location') }}
-                        </button>
-                        <input type="text" id="cemetery_state" wire:model.live="cemetery_plot_location"
-                               class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
-                    </div>
+                <label for="cemetery_plot_location"
+                       class="inline-block mb-2 text-base font-medium">
+                    {{ __('all.cemetery_plot_location') }}
+                </label>
+                <div class="flex rounded-lg shadow-sm">
+                    <button type="button" style="width: 12%;" x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'maps-modal')"
+                            class="bg-slate-100 border-slate-200 py-3 px-4 justify-center items-center text-base font-medium rounded-s-md">
+                        {{ __('all.cemetery_set_location') }}
+                    </button>
+                    <input type="text" id="cemetery_state" wire:model.live="cemetery_plot_location"
+                           class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                </div>
             </div>
             @if($errors->any())
-                <div style="border-radius: 20px;" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative" role="alert">
+                <div style="border-radius: 20px;"
+                     class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative" role="alert">
                     <strong class="font-bold">{{ __('all.whoops') }}</strong>
                     <span class="block sm:inline">{{ __('all.check_form_errors') }}</span>
                     <ul class="mt-3 list-disc list-inside">
@@ -370,7 +377,8 @@
                     </ul>
                 </div>
             @endif
-            <button style="width: 50%; display: block; margin: auto; margin-top: 2rem;" type="submit" wire:loading.remove
+            <button style="width: 50%; display: block; margin: auto; margin-top: 2rem;" type="submit"
+                    wire:loading.remove
                     class="text-white btn bg-custom-500 border-custom-500">
                 {{ __('all.save') }}
             </button>
@@ -380,7 +388,7 @@
         </div>
     </div>
 
-    <x-modal name="update-profile-avatar" :show="$errors->isNotEmpty()" focusable max>
+    <x-modal name="update-profile-avatar" :show="$errors->isNotEmpty()" focusable max :key="now()">
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('all.change_profile_picture') }}
         </h2>
@@ -439,7 +447,8 @@
                                     <div class="flex justify-center items-center gap-2">
                                         <button type="button" class="text-red-600"
                                                 x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
-                                        <button type="button" class="text-custom-600" wire:click="$toggle('profile_picture_changed')"
+                                        <button type="button" class="text-custom-600"
+                                                wire:click="$toggle('profile_picture_changed')"
                                                 x-on:click.prevent="saveAvatar()"><i data-lucide="save"></i></button>
                                     </div>
                                 </div>
@@ -450,7 +459,7 @@
             </div>
         </div>
     </x-modal>
-    <x-modal name="update-cover-photo" :show="$errors->isNotEmpty()" focusable max>
+    <x-modal name="update-cover-photo" :show="$errors->isNotEmpty()" focusable max :key="now()">
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('all.change_cover_photo') }}
         </h2>
@@ -511,7 +520,8 @@
                                     <div class="flex justify-center items-center gap-2">
                                         <button type="button" class="text-red-600"
                                                 x-on:click.prevent="remove()"><i data-lucide="trash"></i></button>
-                                        <button type="button" class="text-custom-600" wire:click="$toggle('cover_photo_changed')"
+                                        <button type="button" class="text-custom-600"
+                                                wire:click="$toggle('cover_photo_changed')"
                                                 x-on:click.prevent="saveCover()"><i data-lucide="save"></i></button>
                                     </div>
                                 </div>
@@ -523,12 +533,12 @@
         </div>
     </x-modal>
 
-    <x-modal name="maps-modal"  :show="$errors->isNotEmpty()" focusable max>
+    <x-modal name="maps-modal" :show="$errors->isNotEmpty()" focusable max>
         <div class="flex flex-row justify-between">
             <h2 class="text-lg font-medium text-gray-900">
                 {{ __('all.set_plot_location') }}
             </h2>
-            <button @click="show = false" class="focus:outline-none" >
+            <button @click="show = false" class="focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -537,7 +547,7 @@
             </button>
         </div>
         <hr>
-        <livewire:user.profile.partials.map-search-box :lat="$lat" :lng="$lng" />
+        <livewire:user.profile.partials.map-search-box :lat="$lat" :lng="$lng"/>
     </x-modal>
     <script>
         document.addEventListener('alpine:init', () => {
@@ -591,9 +601,8 @@
                 saveCover() {
                     this.croppie.result({
                         type: "base64",
-                        size: "original"
+                        size: {width: this.width, height: this.height}
                     }).then((croppedImage) => {
-                        // this.$wire.set('cover_photo', croppedImage)
                         Livewire.dispatch('saveCoverPhoto', {'image': croppedImage});
                         this.$dispatch('close-modal', 'update-cover-photo');
                     })

@@ -22,7 +22,7 @@
                 </div>
                 <h5>{!! $tribute->title !!}</h5>
                 <p class="mt-3">
-                    {!! $tribute->tribute !!}
+                    {!! nl2br(e($tribute->tribute)) !!}
                 </p>
             </div>
             @endforeach

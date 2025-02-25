@@ -10,7 +10,7 @@ use Livewire\WithFileUploads;
 
 class Photos extends Component
 {
-    use withFileUploads;
+    use WithFileUploads;
 
     public $can_add = false;
     public $profile;
@@ -25,53 +25,72 @@ class Photos extends Component
         $this->can_add = $profile->canEdit();
 
         $this->field = [
-            'name' => 'image',
-            'label' => 'Upload Image',
-            'key' => 'image',
-            'id' => 'imageCropper',
-            'width' => 400,
-            'height' => 400,
-            'shape' => 'square',
+            'name'         => 'image',
+            'label'        => 'Upload Image',
+            'key'          => 'image',
+            'id'           => 'imageCropper',
+            'width'        => 400,
+            'height'       => 400,
+            'shape'        => 'square',
             'wrapperClass' => 'w-50',
-            'thumbnail' => '',
-            'disabled' => false,
+            'thumbnail'    => '',
+            'disabled'     => false,
         ];
+        // Load fresh photos
+        $this->photos = $this->profile->photos()->get();
     }
 
     public function render()
     {
-        $this->photos = $this->profile->photos;
+        // Always re-query to reflect recent changes (e.g. deletion)
+        $this->photos = $this->profile->photos()->get();
         return view('livewire.account.photos');
     }
 
     public function updatedPhoto()
     {
         $this->validate([
-            'photo' => 'image|max:4096', // 1MB Max
+            'photo' => 'image|mimes:jpg,jpeg,png,gif|max:4096', // limit to supported file types
         ]);
     }
 
     public function addPhoto()
     {
+        // Validate both photo and caption
+        $this->validate([
+            'photo'   => 'required|image|mimes:jpg,jpeg,png,gif|max:4096',
+            'caption' => 'required|string|max:255',
+        ]);
+
         $path = $this->photo->store('profile/photos', 'public');
         $this->profile->photos()->create([
-            'path' => $path,
+            'path'    => $path,
             'caption' => $this->caption,
         ]);
-        $this->photo = null;
-        $this->caption = '';
-        $this->photos = $this->profile->photos;
+
+        // Refresh photos so that the delete buttons show correctly
+        $this->photos = $this->profile->photos()->get();
+        $this->reset(['photo', 'caption']);
     }
 
     public function removePhoto($photoId)
     {
-        $photo = $this->profile->photos()->where('id', $photoId)->first();
-        $photo->delete();
-        $this->photos = $this->profile->photos;
+        $photo = $this->profile->photos()->find($photoId);
+        if ($photo) {
+            // Delete file from storage if it exists
+            if (Storage::disk('public')->exists($photo->path)) {
+                Storage::disk('public')->delete($photo->path);
+            }
+            $photo->delete();
+        }
+        // Re-query photos after deletion
+        $this->photos = $this->profile->photos()->get();
     }
+
     #[On('savePhoto')]
     public function savePhoto($image)
     {
+        // Validate caption here as well (required for cropped uploads)
         $this->validate([
             'caption' => 'required|string|max:255',
         ]);
@@ -79,12 +98,10 @@ class Photos extends Component
         $fileName = 'profiles/photo-' . time() . '.png';
         Storage::disk('public')->put($fileName, $imageData, 'public');
         $this->profile->photos()->create([
-            'path' => $fileName,
+            'path'    => $fileName,
             'caption' => $this->caption,
         ]);
-        $this->photo = null;
-        $this->caption = '';
-        $this->photos = $this->profile->photos;
+        $this->photos = $this->profile->photos()->get();
+        $this->reset(['photo', 'caption']);
     }
-
 }
