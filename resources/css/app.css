@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+.btn {
+    background-color: red !important; /* Example */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.bg-custom {
+    background-color: #FF00FF !important; /* Example custom background color */
+}

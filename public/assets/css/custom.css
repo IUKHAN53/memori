@@ -1,0 +1,326 @@
+/* ImageCropper */
+.tf-cropper-root {
+    @apply bg-white border-2 border-dashed border-gray-300 mx-auto p-4 relative rounded w-full;
+}
+.tf-cropper-drop-zone {
+    @apply cursor-pointer font-bold text-center text-gray-500 text-xs tracking-wide uppercase;
+}
+.tf-cropper-file-info {
+    @apply font-extralight text-gray-500 text-xs;
+}
+.tf-cropper-icon {
+    @apply mx-auto h-12 w-12 text-gray-400;
+}
+.tf-cropper-modal-bg {
+    @apply fixed inset-0 h-screen w-screen p-2 sm:p-10 md:p-20 bg-gray-800 bg-opacity-75 z-50;
+}
+.tf-cropper-modal {
+    @apply bg-white rounded w-full h-full flex justify-center items-center isolate;
+    z-index: 5;
+}
+.tf-cropper-btns-root {
+    @apply absolute inset-0 isolate;
+    z-index: 5; /* compatible with CKEditor overlay */
+}
+.tf-cropper-btns-wrapper {
+    @apply flex gap-2 h-full w-full items-center justify-center;
+}
+.tf-cropper-edit-btn-wrapper {
+    @apply z-10 absolute inset-0;
+}
+.tf-cropper-thumb {
+    @apply w-full h-full;
+}
+.tf-cropper-upload {
+    @apply tf-bg-primary flex font-medium items-center mt-2 mx-auto outline-none px-2 rounded-sm text-center text-white text-xs;
+}
+.tf-cropper-delete {
+    @apply tf-bg-danger text-white p-2 rounded;
+}
+.tf-cropper-save {
+    @apply tf-bg-success text-white p-2 rounded;
+}
+.tf-cropper-swap {
+    @apply tf-bg-danger bg-opacity-75 hover:bg-opacity-100 text-white p-1 text-xs rounded;
+}
+.tf-cropper-edit {
+    @apply tf-bg-success bg-opacity-75 hover:bg-opacity-100 text-white p-1 text-xs rounded;
+}
+
+.bg-auth-pattern {
+    background-image: none !important;
+}
+
+.text-purple-500 {
+    color: #154190 !important;
+}
+
+.outline-btn {
+    border: solid 2px #154190;
+    color: #154190;
+}
+
+.solid-btn {
+    background-color: #154190 !important;
+    border: solid 2px #154190;
+}
+
+.solid-btn-grey {
+    background-color: #eeeeee !important;
+    border: solid 2px #eeeeee;
+    color: #000000b3;
+}
+
+h1 {
+    font-weight: 700;
+    line-height: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.btn {
+    font-weight: 600;
+    border-radius: 50px !important;
+    padding-top: .625rem;
+    padding-bottom: .625rem;
+}
+
+body {
+    font-family: 'Arimo', sans-serif !important;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-nav {
+        height: 4.5rem;
+    }
+    .menu-login-btn {
+        margin: 0 1rem 0.625rem 1rem;
+    }
+    .menu-register-btn {
+        margin: 0.75rem 1rem 0.625rem 1rem;
+    }
+    .mobile-nav-direction {
+        direction: ltr;
+    }
+    .mobile-menu-list {
+        direction: rtl;
+        border-top: solid 1px rgb(226 232 240 / var(--tw-border-opacity));
+    }
+    .profile-container {
+        margin-top: 72px;
+        margin-bottom: 72px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .menu-login-btn {
+        padding: 0 .75rem;
+        width: 8rem;
+    }
+
+    .nav-direction {
+        padding-left: 0;
+    }
+    .menu-register-btn {
+        padding-right: .75rem;
+        width: 8rem;
+    }
+}
+
+.checked\:bg-custom-500:checked {
+    background-color: #154190;
+}
+
+.checked\:border-custom-500:checked {
+    border-color: #154190;
+}
+
+.bg-maincolor {
+    background-color: #154190;
+}
+
+h3 {
+    font-weight: 700;
+}
+
+.\[\&\.active\]\:text-custom-500.active {
+    color: #154190;
+}
+
+.hover\:text-custom-500:hover {
+    color: #154190;
+}
+
+.noti-bg {
+    background-color: #f0f5ff;
+}
+
+.noti-border {
+    border-color: #cddfff;
+}
+
+.cards {
+    margin-bottom: 1.25rem;
+}
+
+.group.active .group-\[\.active\]\:text-custom-500 {
+    color: #154190;
+}
+
+.group.active .group-\[\.active\]\:border-b-custom-500 {
+    border-bottom-color: #154190;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-text-center {
+        text-align: center;
+    }
+}
+
+.bg-custom-500 {
+    background-color:#154190;
+}
+
+.border-custom-500 {
+    border-color:#154190;
+}
+
+.rounded {
+    border-radius: 50px;
+}
+
+.profile-tabs-pd {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.bg-topbar {
+    background-color: transparent;
+}
+
+.nav-pfp:hover {
+    opacity: 80%;
+}
+
+.hover\:bg-topbar-item-bg-hover:hover {
+    background-color: transparent;
+}
+
+.text-sm {
+    line-height: 0.8125rem;
+    margin-bottom: 0 !important;
+}
+
+.mobile-nav {
+    background-color: rgb(255 255 255 / 60%);
+    backdrop-filter: blur(5px);
+}
+
+@media screen and (max-width: 768px) {
+    .profile-header, .profile-top {
+        align-items: flex-start !important;
+    }
+    .profile-header {
+        padding: 0 1rem;
+        margin-bottom: 1.25rem;
+        margin-top: -60px;
+    }
+    #avatarImage {
+        width: 120px;
+        height: auto;
+        border: solid 5px #fff;
+        box-shadow: 0 5px 3px #00000025
+    }
+
+    .tab-content {
+        padding: 0 1rem;
+    }
+}
+
+.lucide, .feather {
+    width: 16px;
+    height: auto;
+}
+
+.announcement-bar {
+    width: 100%;
+    background-color:#154190;
+    position: fixed;
+    top: 0;
+    text-align: center;
+    color:#fff;
+    z-index: 1;
+    padding: 5px 0;
+}
+
+.rounded-20 {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 5px #00000025;
+}
+
+.medallion-profile-btn {
+    margin-bottom: 1rem;
+}
+
+.popup-add-content {
+    width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+    .popup-add-content {
+        width: 100% !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .banner-profile {
+        border-radius: 20px 20px 0 0;
+    }
+    .under-banner {
+        padding: 1.25rem;
+        padding-top: 0;
+        border: solid 2px #eeeeee;
+        border-radius: 0 0 30px 30px;
+    }
+    
+}
+
+.photo-text-container {
+    padding: 1rem;
+}
+
+.logo-top {
+    margin: auto;
+}
+
+.login-card {
+    width: 100%;
+}
+
+@media screen and (max-width:768px) {
+    .priv-profile {
+        margin-right: -1rem;
+        border-radius: 20px 0 0 20px;
+        margin-top: .5rem;
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.flame-icon {
+    animation: fadeInOut 1.3s infinite;
+}
+
+@media screen and (min-width: 768px) {
+    .xl\:py-32 {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+    }
+}
