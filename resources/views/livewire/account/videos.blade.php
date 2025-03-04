@@ -21,7 +21,7 @@
                     <button class="text-red-400 hover:text-red-500 float-right"
                             wire:click="removeVideo({{ $video->id }})"
                             wire:confirm="{{ __('all.are_you_sure_remove_video') }}">
-                        <i data-lucide="trash" class="w-5 h-5"></i>
+                        <span wire:ignore><i data-lucide="trash" class="w-5 h-5"></i></span>
                     </button>
                 </div>
             </div>
@@ -66,33 +66,35 @@
                 <p class="mt-2 text-sm text-gray-500" style="text-align: right;">
                     {{ __('all.add_video_url_details') }}
                 </p>
-                <form class="mt-5">
+                <form class="mt-5" wire:submit="addVideo">
                     <div>
-                        <label class="block text-sm text-gray-700 capitalize dark:text-gray-200" style="text-align: right;">
+                        <label class="block text-sm text-gray-700 capitalize dark:text-gray-200"
+                               style="text-align: right;">
                             {{ __('all.youtube_video_url') }}
                         </label>
                         <input placeholder="{{ __('all.enter_video_url') }}" type="text" wire:model="url"
                                class="block w-full px-3 py-2 mt-2 mb-3 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
                         @error('url') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
 
-                        <label class="block text-sm text-gray-700 capitalize dark:text-gray-200" style="text-align: right;">
+                        <label class="block text-sm text-gray-700 capitalize dark:text-gray-200"
+                               style="text-align: right;">
                             {{ __('all.video_title') }}
                         </label>
                         <input placeholder="{{ __('all.enter_video_title') }}" type="text" wire:model="title"
                                class="block w-full px-3 py-2 mt-2 mb-3 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
                         @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
 
-                        <label class="block text-sm text-gray-700 capitalize dark:text-gray-200" style="text-align: right;">
+                        <label class="block text-sm text-gray-700 capitalize dark:text-gray-200"
+                               style="text-align: right;">
                             {{ __('all.description') }}
                         </label>
-                        <input placeholder="{{ __('all.enter_video_description') }}" type="text" wire:model="description"
+                        <input placeholder="{{ __('all.enter_video_description') }}" type="text"
+                               wire:model="description"
                                class="block w-full px-3 py-2 mt-2 mb-3 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40">
                         @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
                     <div class="flex justify-start mt-6">
-                        <!-- Disable the button when title is empty -->
-                        <button type="button" wire:click="addVideo" @click="modelOpen = false"
-                                :disabled="!videoTitle"
+                        <button type="submit"
                                 class="rounded-full px-3 py-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-custom-500 disabled:opacity-50 disabled:cursor-not-allowed">
                             {{ __('all.add') }}
                         </button>
@@ -101,4 +103,16 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.on('refreshVideos', () => {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            });
+            Livewire.on('closeModal', () => {
+                document.querySelector('[x-data="{ modelOpen: false }"]').__x.$data.modelOpen = false;
+            });
+        });
+    </script>
 </div>

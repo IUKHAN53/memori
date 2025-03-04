@@ -214,7 +214,7 @@
                 this.$wire.photo = this.originalSrc;
                 Livewire.dispatch('savePhoto', {'image': this.originalSrc});
                 this.resetCropper();
-                this.$dispatch('close-modal', 'add-photo-modal');
+
             },
             resetCropper() {
                 this.remove();

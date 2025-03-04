@@ -25,16 +25,16 @@ class Photos extends Component
         $this->can_add = $profile->canEdit();
 
         $this->field = [
-            'name'         => 'image',
-            'label'        => 'Upload Image',
-            'key'          => 'image',
-            'id'           => 'imageCropper',
-            'width'        => 400,
-            'height'       => 400,
-            'shape'        => 'square',
+            'name' => 'image',
+            'label' => 'Upload Image',
+            'key' => 'image',
+            'id' => 'imageCropper',
+            'width' => 400,
+            'height' => 400,
+            'shape' => 'square',
             'wrapperClass' => 'w-50',
-            'thumbnail'    => '',
-            'disabled'     => false,
+            'thumbnail' => '',
+            'disabled' => false,
         ];
         // Load fresh photos
         $this->photos = $this->profile->photos()->get();
@@ -58,13 +58,13 @@ class Photos extends Component
     {
         // Validate both photo and caption
         $this->validate([
-            'photo'   => 'required|image|mimes:jpg,jpeg,png,gif|max:4096',
+            'photo' => 'required|image|mimes:jpg,jpeg,png,gif|max:4096',
             'caption' => 'required|string|max:255',
         ]);
 
         $path = $this->photo->store('profile/photos', 'public');
         $this->profile->photos()->create([
-            'path'    => $path,
+            'path' => $path,
             'caption' => $this->caption,
         ]);
 
@@ -77,7 +77,6 @@ class Photos extends Component
     {
         $photo = $this->profile->photos()->find($photoId);
         if ($photo) {
-            // Delete file from storage if it exists
             if (Storage::disk('public')->exists($photo->path)) {
                 Storage::disk('public')->delete($photo->path);
             }
@@ -85,6 +84,7 @@ class Photos extends Component
         }
         // Re-query photos after deletion
         $this->photos = $this->profile->photos()->get();
+        return redirect()->to(request()->header('Referer'));
     }
 
     #[On('savePhoto')]
@@ -98,10 +98,10 @@ class Photos extends Component
         $fileName = 'profiles/photo-' . time() . '.png';
         Storage::disk('public')->put($fileName, $imageData, 'public');
         $this->profile->photos()->create([
-            'path'    => $fileName,
+            'path' => $fileName,
             'caption' => $this->caption,
         ]);
         $this->photos = $this->profile->photos()->get();
-        $this->reset(['photo', 'caption']);
+        return redirect()->to(request()->header('Referer'));
     }
 }

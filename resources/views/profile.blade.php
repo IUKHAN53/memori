@@ -47,7 +47,7 @@
                         <div class="flex justify-end items-end">
                             <div
                                 class="flex gap-2 justify-center lg:justify-end xl:justify-end 2xl:justify-end sm:justify-center md:justify-center">
-                                @if(auth()->user()->id == $profile->user_id)
+                                @if(auth()->user() && auth()->user()->id == $profile->user_id)
                                     @if($profile->is_public)
                                         <a href="{{route('change-status',['id' => $profile->id])}}"
                                            class="solid-btn btn text-white text-xs rounded shadow flex items-center gap-2">
