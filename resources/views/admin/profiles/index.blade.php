@@ -46,7 +46,7 @@
                                 <tr>
                                     <td>{{$profile->full_name}}</td>
                                     <td>{{$profile->title}}</td>
-                                    <td>{{$profile->user->name}}</td>
+                                    <td>{{optional($profile->user)->name}}</td>
                                     <td>{{$profile->relationship}}</td>
                                     <td>{{$profile->date_of_birth}}</td>
                                     <td>{{$profile->date_of_death}}</td>
