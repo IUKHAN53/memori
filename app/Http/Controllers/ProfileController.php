@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
 use App\Models\Profile;
 use App\Models\ProfileInvite;
 use App\Models\User;
@@ -13,13 +12,20 @@ class ProfileController extends Controller
     public function view($id)
     {
         $profile = Profile::find($id);
-        if (!$profile || !$profile->is_public) {
-            if(auth()->user()->id !== $profile->user_id && !$profile->is_public) {
-                abort(404);
+
+        if (!$profile) {
+            abort(404);
+        }
+
+        if (!$profile->is_public) {
+            if (!auth()->check() || auth()->id() !== $profile->user_id) {
+                abort(403);
             }
         }
+
         return view('profile', compact('profile'));
     }
+
 
     public function markFavourite(Request $request, $id)
     {

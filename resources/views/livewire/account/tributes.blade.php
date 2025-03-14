@@ -65,12 +65,15 @@
                 </div>
                 <div class="space-y-5">
                     <div class="flex justify-start items-center gap-3">
-                        <img class="h-16 w-16 rounded-full"
+                        @auth()
+                            <img class="h-16 w-16 rounded-full"
                              src="{{auth()->user()->picture}}"
                              alt="">
                         <div>
                             <h6 class="font-medium">{{auth()->user()->name}}</h6>
                         </div>
+
+                        @endauth
                     </div>
                     <div style="text-align: right;">
                         <label for="title">{{ __('all.title') }}</label>

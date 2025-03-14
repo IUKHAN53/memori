@@ -14,18 +14,17 @@ class Videos extends Component
     public $url;
     public $title;
     public $description;
-    public $videos;
 
     public function mount(Profile $profile)
     {
         $this->profile = $profile;
         $this->can_add = $profile->canEdit();
-        $this->videos = $this->profile->videos()->get();
     }
 
     public function render()
     {
-        return view('livewire.account.videos');
+
+        return view('livewire.account.videos')->with('videos', $this->profile->videos()->get());
     }
 
     protected $rules = [
@@ -37,13 +36,16 @@ class Videos extends Component
     public function addVideo()
     {
         $this->validate();
+
         $this->profile->videos()->create([
-            'url' => $this->url,
-            'title' => $this->title,
+            'url'         => $this->url,
+            'title'       => $this->title,
             'description' => $this->description,
         ]);
+
         $this->reset(['url', 'title', 'description']);
-        return redirect()->to(request()->header('Referer'));
+
+        $this->dispatch('closeModal');
     }
 
     public function removeVideo($videoId)
@@ -52,6 +54,5 @@ class Videos extends Component
         if ($video) {
             $video->delete();
         }
-        $this->videos = $this->profile->videos()->get();
     }
 }
