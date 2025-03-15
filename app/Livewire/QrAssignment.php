@@ -19,7 +19,6 @@ class QrAssignment extends Component
     #[Layout('layouts.auth')]
     public LoginForm $form;
     public string $identifier;
-    public string $secret_phrase = '';
     public ?User $user = null;
     public bool $wants_login = true;
 
@@ -56,7 +55,7 @@ class QrAssignment extends Component
         Session::regenerate();
         $this->user = auth()->user();
 
-        $this->dispatch('userLoggedIn'); // Ensures Livewire updates state correctly
+        $this->dispatch('userLoggedIn');
     }
 
     public function register()
@@ -75,7 +74,7 @@ class QrAssignment extends Component
         Auth::login($user);
         $this->user = $user;
 
-        $this->dispatch('userLoggedIn'); // Ensures UI updates immediately
+        $this->dispatch('userLoggedIn');
     }
 
     public function toggleLogin()
@@ -92,17 +91,10 @@ class QrAssignment extends Component
 
     public function verifyAndAdd()
     {
-        $this->validate(['secret_phrase' => 'required|string']);
-
         $qrCode = QrCode::where('identifier', $this->identifier)->first();
 
         if (!$qrCode) {
-            $this->addError('secret_phrase', 'Invalid QR Code');
-            return;
-        }
-
-        if ($this->secret_phrase !== $qrCode->secret_phrase) {
-            $this->addError('secret_phrase', 'Invalid secret phrase');
+            $this->addError('qr_code', 'Invalid QR Code');
             return;
         }
 
