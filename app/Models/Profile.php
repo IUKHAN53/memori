@@ -124,7 +124,7 @@ class Profile extends Model
 
     public function canEdit()
     {
-        return $this->profileUsers()->where('user_id', auth()->id())->where('can_edit', true)->exists();
+        return $this->profileUsers()->where('user_id', auth()->id())->exists();
     }
 
 }

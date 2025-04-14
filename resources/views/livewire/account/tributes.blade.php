@@ -1,9 +1,11 @@
 <div x-data="{ modelOpen: false }">
     <div class="rounded flex justify-end m-3 medallion-profile-btn">
+        @if($can_add)
         <button type="submit" @click="modelOpen =!modelOpen"
                 class="text-white btn bg-custom-500 border-custom-500">
             {{ __('all.post_tribute') }}
         </button>
+        @endif
     </div>
     <div>
         <div>
