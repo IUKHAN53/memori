@@ -13,10 +13,12 @@ class Tributes extends Component
     public $tribute;
     public $profile;
     public $tributes;
+    public $can_add = false;
 
     public function mount(Profile $profile)
     {
         $this->profile = $profile;
+        $this->can_add = $profile->canEdit();
     }
 
     protected $rules = [

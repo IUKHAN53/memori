@@ -1,9 +1,11 @@
 <div x-data="{ modelOpen: false }">
     <div class="rounded flex justify-end m-3 medallion-profile-btn">
+        @if($can_add)
         <button type="submit" @click="modelOpen =!modelOpen"
                 class="text-white btn bg-custom-500 border-custom-500">
             {{ __('all.post_tribute') }}
         </button>
+        @endif
     </div>
     <div>
         <div>
@@ -65,12 +67,15 @@
                 </div>
                 <div class="space-y-5">
                     <div class="flex justify-start items-center gap-3">
-                        <img class="h-16 w-16 rounded-full"
+                        @auth()
+                            <img class="h-16 w-16 rounded-full"
                              src="{{auth()->user()->picture}}"
                              alt="">
                         <div>
                             <h6 class="font-medium">{{auth()->user()->name}}</h6>
                         </div>
+
+                        @endauth
                     </div>
                     <div style="text-align: right;">
                         <label for="title">{{ __('all.title') }}</label>

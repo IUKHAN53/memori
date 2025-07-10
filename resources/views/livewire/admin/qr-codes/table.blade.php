@@ -18,11 +18,9 @@
         <thead>
         <tr>
             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.qr_code') }}</th>
-{{--            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.download_qr') }}</th>--}}
-{{--            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.identifier') }}</th>--}}
             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.url') }}</th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.secret') }}</th>
             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.assigned') }}</th>
-{{--            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.created_at') }}</th>--}}
             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">{{ __('all.action') }}</th>
         </tr>
         </thead>
@@ -32,22 +30,16 @@
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
                     <img src="{{Storage::url($qrCode->path)}}" alt="QR Code" class="w-auto h-14 ml-3">
                 </td>
-{{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">--}}
-{{--                    <a href="{{Storage::url($qrCode->path)}}" download><img--}}
-{{--                            src="{{asset('assets/images/download.svg')}}" alt="Download"></a>--}}
-{{--                </td>--}}
-{{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4" class=" ltr:!text-left rtl:!text-right">{{$qrCode->identifier}}</td>--}}
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <a href="{{route('qr-code.verify', ['identifier' => $qrCode->identifier])}}" target="_blank"
-                    class="text-custom-500">Click to open
+                       class="text-custom-500">Click to open
                     </a>
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                    {{$qrCode->secret_phrase}}
                 </td>
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"><span
                         class="text-{{$qrCode->is_assigned ? 'purple' : 'green'}}-500">{{$qrCode->is_assigned ? 'Yes' : 'No'}}</span>
-                </td>
-{{--                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">--}}
-{{--                    <span class="text-gray-500">{{$qrCode->created_at->format('d M Y')}}</span>--}}
-{{--                </td>--}}
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <div class="flex items-center justify-center">
                         <button wire:click="deleteQr('{{$qrCode->id}}')"

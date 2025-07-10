@@ -17,9 +17,11 @@ class Users extends Component
     public $users;
     public $invitations;
     public $email;
+    public $can_add = false;
 
     public function mount(Profile $profile)
     {
+        $this->can_add = $profile->canEdit();
         $this->profile = $profile;
     }
 

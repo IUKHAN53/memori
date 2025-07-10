@@ -549,70 +549,94 @@
         <hr>
         <livewire:user.profile.partials.map-search-box :lat="$lat" :lng="$lng"/>
     </x-modal>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('imageCropper2', (config) => ({
-                showCroppie: false,
-                hasImage: false,
-                originalSrc: config.imageUrl,
-                width: config.width,
-                height: config.height,
-                shape: config.shape,
-                fieldKey: config.fieldKey,
-                croppie: {},
-                init() {
-                    this.$nextTick(() => this.initCroppie())
-                },
-                updatePreview() {
-                    let reader, files = this.$refs.input.files
-                    reader = new FileReader()
-                    reader.onload = (e) => {
-                        this.showCroppie = true
-                        this.originalSrc = e.target.result
-                        this.bindCroppie(e.target.result)
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('imageCropper2', (config) => ({
+            showCroppie: false,
+            hasImage: false,
+            originalSrc: config.imageUrl,
+            width: config.width,
+            height: config.height,
+            shape: config.shape,
+            fieldKey: config.fieldKey,
+            croppie: {},
+
+            init() {
+                this.$nextTick(() => this.initCroppie());
+            },
+
+            updatePreview() {
+                let reader, files = this.$refs.input.files;
+                if (!files.length) return;
+                reader = new FileReader();
+                reader.onload = (e) => {
+                    this.showCroppie = true;
+                    this.originalSrc = e.target.result;
+                    this.bindCroppie(e.target.result);
+                };
+                reader.readAsDataURL(files[0]);
+            },
+
+            initCroppie() {
+                this.croppie = new Croppie(this.$refs.croppie, {
+                    enableExif: true,           // Fix orientation for mobile
+                    enableOrientation: true,    // Allow manual rotation
+                    viewport: {
+                        width: this.width,
+                        height: this.height,
+                        type: this.shape,       // circle or square
+                    },
+                    boundary: {
+                        width: this.width,
+                        height: this.height,
+                    },
+                    showZoomer: true,
+                    enableResize: false,
+                });
+            },
+
+            remove() {
+                this.$refs.input.value = null;
+                this.showCroppie = false;
+                this.hasImage = false;
+                this.$wire.set(this.fieldKey, '');
+            },
+
+            // Called when user clicks Save on Profile Picture
+            saveAvatar() {
+                this.croppie.result({
+                    type: 'base64',
+                    size: 'original'
+                }).then((croppedImage) => {
+                    // Dispatch Livewire event to save the profile pic
+                    Livewire.dispatch('saveProfilePhoto', { image: croppedImage });
+                    this.$dispatch('close-modal', 'update-profile-avatar');
+                });
+            },
+
+            // Called when user clicks Save on Cover Photo
+            saveCover() {
+                this.croppie.result({
+                    type: 'base64',
+                    size: {
+                        width: this.width,
+                        height: this.height
                     }
-                    reader.readAsDataURL(files[0])
-                },
-                initCroppie() {
-                    this.croppie = new Croppie(this.$refs.croppie, {
-                        viewport: {width: this.width, height: this.height, type: this.shape}, //circle or square
-                        boundary: {width: this.width, height: this.height}, //default boundary container
-                        showZoomer: true,
-                        enableResize: false
-                    })
-                },
-                remove() {
-                    this.$refs.input.value = null
-                    this.showCroppie = false
-                    this.hasImage = false
-                    this.$refs.result.src = ""
-                    this.$wire.set(this.fieldKey, '')
-                },
-                saveAvatar() {
-                    this.croppie.result({
-                        type: "base64",
-                        size: "original"
-                    }).then((croppedImage) => {
-                        // this.$wire.set('profile_picture', croppedImage)
-                        Livewire.dispatch('saveProfilePhoto', {'image': croppedImage});
-                        this.$dispatch('close-modal', 'update-profile-avatar');
-                    })
-                },
-                saveCover() {
-                    this.croppie.result({
-                        type: "base64",
-                        size: {width: this.width, height: this.height}
-                    }).then((croppedImage) => {
-                        Livewire.dispatch('saveCoverPhoto', {'image': croppedImage});
-                        this.$dispatch('close-modal', 'update-cover-photo');
-                    })
-                },
-                bindCroppie(src) { //avoid problems with croppie container not being visible when binding
-                    setTimeout(() => {
-                        this.croppie.bind({url: src})
-                    }, 200)
-                }
-            }))
-        })
-    </script>
+                }).then((croppedImage) => {
+                    // Dispatch Livewire event to save the cover photo
+                    Livewire.dispatch('saveCoverPhoto', { image: croppedImage });
+                    this.$dispatch('close-modal', 'update-cover-photo');
+                });
+            },
+
+            // Binds the newly selected file to Croppie
+            bindCroppie(src) {
+                setTimeout(() => {
+                    this.croppie.bind({ url: src });
+                }, 200);
+            },
+        }));
+    });
+</script>
+
 </div>
