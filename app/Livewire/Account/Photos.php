@@ -52,23 +52,8 @@ class Photos extends Component
      */
     public function canDeletePhoto($photo)
     {
-        $currentUserId = auth()->id();
-        
-        // Check if user is the one who uploaded the photo
-        if ($photo->user_id == $currentUserId) {
-            return true;
-        }
-        
-        // Check if user is the profile owner
-        $profileUser = $this->profile->profileUsers()
-            ->where('user_id', $currentUserId)
-            ->first();
-        
-        if ($profileUser && $profileUser->is_owner) {
-            return true;
-        }
-        
-        return false;
+        // Allow deletion if: user is profile owner/editor OR user is the original uploader
+        return $this->profile->canEdit() || $photo->user_id === auth()->id();
     }
 
     public function updatedPhoto()
@@ -140,28 +125,12 @@ class Photos extends Component
     /**
      * Check if the current user can delete a photo.
      * Users can delete photos if they are:
-     * 1. The profile owner (is_owner = true)
+     * 1. The profile owner or have edit permissions
      * 2. The user who uploaded the photo
-     * 3. Have edit permissions and are authorized by the profile owner
      */
     private function canUserDeletePhoto($photo)
     {
-        $currentUserId = auth()->id();
-        
-        // Check if user is the one who uploaded the photo
-        if ($photo->user_id == $currentUserId) {
-            return true;
-        }
-        
-        // Check if user is the profile owner
-        $profileUser = $this->profile->profileUsers()
-            ->where('user_id', $currentUserId)
-            ->first();
-        
-        if ($profileUser && $profileUser->is_owner) {
-            return true;
-        }
-        
-        return false;
+        // Allow deletion if: user is profile owner/editor OR user is the original uploader
+        return $this->profile->canEdit() || $photo->user_id === auth()->id();
     }
 }

@@ -33,6 +33,12 @@ class Tributes extends Component
 
     public function postTribute()
     {
+        // Check if user has permission to post tributes
+        if (!$this->profile->canEdit()) {
+            session()->flash('error', 'You do not have permission to post tributes.');
+            return;
+        }
+        
         $this->validate();
 
         $tribute = new ProfileTributes();
@@ -43,7 +49,6 @@ class Tributes extends Component
         $tribute->save();
 
         $this->reset(['title', 'tribute']);
-
     }
 
     public function toggleLike($tributeId)
@@ -66,6 +71,21 @@ class Tributes extends Component
     public function removeTribute($tributeId)
     {
         $tribute = ProfileTributes::find($tributeId);
+        
+        // Check if user has permission to remove tributes
+        // Allow removal if: user is profile owner/editor OR user is the original tribute author
+        if (!$this->profile->canEdit() && $tribute->user_id !== auth()->id()) {
+            session()->flash('error', 'You do not have permission to remove this tribute.');
+            return;
+        }
+        
         $tribute->delete();
+        session()->flash('success', 'Tribute removed successfully.');
+    }
+
+    public function canDeleteTribute($tribute)
+    {
+        // Allow deletion if: user is profile owner/editor OR user is the original tribute author
+        return $this->profile->canEdit() || $tribute->user_id === auth()->id();
     }
 }

@@ -12,14 +12,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        \App\Models\User::factory()->create([
-            'first_name' => 'Admin',
-            'last_name' => 'Test',
-            'email' => 'admin@memori.com',
-            'password' => bcrypt('memori@123'), // 'password' is the default password
-            'role' => 'admin',
+        // Run seeders in order of dependencies
+        $this->call([
+            SiteSettingSeeder::class,
+            UserSeeder::class,
+            ProfileSeeder::class,
+            ProfileUserSeeder::class,
+            QrCodeSeeder::class,
+            ProfileImageSeeder::class,
+            ProfileVideoSeeder::class,
+            ProfileTributeSeeder::class,
         ]);
+
+        $this->command->info('Database seeded successfully!');
+        $this->command->info('Test credentials:');
+        $this->command->info('Admin: admin@memori.com / memori@123');
+        $this->command->info('User 1: john@example.com / password');
+        $this->command->info('User 2: jane@example.com / password');
+        $this->command->info('User 3: michael@example.com / password');
     }
 }

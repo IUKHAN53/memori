@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Livewire\Account\Photos;
+use App\Livewire\Account\Videos;
 use App\Models\Profile;
-use App\Models\ProfileImages;
+use App\Models\ProfileVideos;
 use App\Models\ProfileUsers;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class PhotoAuthorizationTest extends TestCase
+class VideoAuthorizationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_owner_can_delete_any_photo()
+    public function test_owner_can_delete_any_video()
     {
         // Create owner and contributor
         $owner = User::create([
@@ -50,24 +50,25 @@ class PhotoAuthorizationTest extends TestCase
             'can_edit' => true,
         ]);
 
-        // Create photos
-        $contributorPhoto = ProfileImages::create([
+        // Create video
+        $contributorVideo = ProfileVideos::create([
             'profile_id' => $profile->id,
             'user_id' => $contributor->id,
-            'path' => 'test/contributor-photo.jpg',
-            'caption' => 'Photo by contributor',
+            'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'title' => 'Video by contributor',
+            'description' => 'Test video',
         ]);
 
         // Test as owner
         $this->actingAs($owner);
 
-        $component = Livewire::test(Photos::class, ['profile' => $profile]);
+        $component = Livewire::test(Videos::class, ['profile' => $profile]);
         
-        // Owner should be able to delete contributor's photo
-        $this->assertTrue($component->instance()->canDeletePhoto($contributorPhoto));
+        // Owner should be able to delete contributor's video
+        $this->assertTrue($component->instance()->canDeleteVideo($contributorVideo));
     }
 
-    public function test_contributor_with_edit_permissions_can_delete_any_photo()
+    public function test_contributor_with_edit_permissions_can_delete_any_video()
     {
         // Create owner and contributor
         $owner = User::create([
@@ -101,34 +102,36 @@ class PhotoAuthorizationTest extends TestCase
             'can_edit' => true,
         ]);
 
-        // Create photos
-        $ownerPhoto = ProfileImages::create([
+        // Create videos
+        $ownerVideo = ProfileVideos::create([
             'profile_id' => $profile->id,
             'user_id' => $owner->id,
-            'path' => 'test/owner-photo.jpg',
-            'caption' => 'Photo by owner',
+            'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'title' => 'Video by owner',
+            'description' => 'Test video',
         ]);
 
-        $contributorPhoto = ProfileImages::create([
+        $contributorVideo = ProfileVideos::create([
             'profile_id' => $profile->id,
             'user_id' => $contributor->id,
-            'path' => 'test/contributor-photo.jpg',
-            'caption' => 'Photo by contributor',
+            'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'title' => 'Video by contributor',
+            'description' => 'Test video',
         ]);
 
         // Test as contributor
         $this->actingAs($contributor);
 
-        $component = Livewire::test(Photos::class, ['profile' => $profile]);
+        $component = Livewire::test(Videos::class, ['profile' => $profile]);
         
-        // Contributor should be able to delete own photo
-        $this->assertTrue($component->instance()->canDeletePhoto($contributorPhoto));
+        // Contributor should be able to delete own video
+        $this->assertTrue($component->instance()->canDeleteVideo($contributorVideo));
         
-        // Contributor with edit permissions should be able to delete owner's photo
-        $this->assertTrue($component->instance()->canDeletePhoto($ownerPhoto));
+        // Contributor with edit permissions should be able to delete owner's video
+        $this->assertTrue($component->instance()->canDeleteVideo($ownerVideo));
     }
 
-    public function test_unauthorized_user_cannot_delete_photos()
+    public function test_unauthorized_user_cannot_delete_videos()
     {
         // Create users
         $owner = User::create([
@@ -154,20 +157,21 @@ class PhotoAuthorizationTest extends TestCase
             'user_id' => $owner->id,
         ]);
 
-        // Create photo
-        $photo = ProfileImages::create([
+        // Create video
+        $video = ProfileVideos::create([
             'profile_id' => $profile->id,
             'user_id' => $owner->id,
-            'path' => 'test/owner-photo.jpg',
-            'caption' => 'Photo by owner',
+            'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'title' => 'Video by owner',
+            'description' => 'Test video',
         ]);
 
         // Test as unauthorized user
         $this->actingAs($unauthorized);
 
-        $component = Livewire::test(Photos::class, ['profile' => $profile]);
+        $component = Livewire::test(Videos::class, ['profile' => $profile]);
         
-        // Unauthorized user should NOT be able to delete photo
-        $this->assertFalse($component->instance()->canDeletePhoto($photo));
+        // Unauthorized user should NOT be able to delete video
+        $this->assertFalse($component->instance()->canDeleteVideo($video));
     }
 }

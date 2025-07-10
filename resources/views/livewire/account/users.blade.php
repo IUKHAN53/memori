@@ -1,11 +1,18 @@
 <div x-data="{ modelOpen: false }">
+    @if($can_add)
     <div class="rounded flex justify-end m-3 medallion-profile-btn">
         <button type="submit" @click="modelOpen =!modelOpen"
                 class="text-white btn bg-custom-500 border-custom-500">
             {{ __('all.invite_user') }}
         </button>
     </div>
+    @endif
     <div class="">
+        @if (session()->has('error'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium">{{ session('error') }}</span>
+            </div>
+        @endif
         <x-action-message class="me-3" on="user-removed">
             <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
                  role="alert">
@@ -78,7 +85,7 @@
                                         @endif
                                     </td>
                                     <td class="px-2 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        @if(!$user->is_owner)
+                                        @if(!$user->is_owner && $can_add)
                                             <button type="button" class="text-red-600"
                                                     wire:click="removeUser({{$user->id}})"
                                                     wire:confirm="{{__('all.are_you_sure_remove_user')}}">
@@ -136,11 +143,13 @@
                                         @endif
                                     </td>
                                     <td class="px-2 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        @if($can_add)
                                         <button type="button" class="text-red-600"
                                                 wire:click="removeInvitation({{$invitation->id}})"
                                                 wire:confirm="{{__('all.are_you_sure_remove_invitation')}}">
                                             <span wire:ignore><i data-lucide="trash"></i></span>
                                         </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -41,6 +41,7 @@ class Videos extends Component
             'url'         => $this->url,
             'title'       => $this->title,
             'description' => $this->description,
+            'user_id'     => auth()->id(),
         ]);
 
         $this->reset(['url', 'title', 'description']);
@@ -52,7 +53,34 @@ class Videos extends Component
     {
         $video = $this->profile->videos()->find($videoId);
         if ($video) {
+            // Check if user can delete this video
+            if (!$this->canUserDeleteVideo($video)) {
+                session()->flash('error', 'You are not authorized to delete this video.');
+                return;
+            }
+            
             $video->delete();
         }
+    }
+
+    /**
+     * Check if the current user can delete a specific video (for use in blade template).
+     */
+    public function canDeleteVideo($video)
+    {
+        // Allow deletion if: user is profile owner/editor OR user is the original uploader
+        return $this->profile->canEdit() || $video->user_id === auth()->id();
+    }
+
+    /**
+     * Check if the current user can delete a video.
+     * Users can delete videos if they are:
+     * 1. The profile owner (is_owner = true)
+     * 2. The user who uploaded the video
+     */
+    private function canUserDeleteVideo($video)
+    {
+        // Allow deletion if: user is profile owner/editor OR user is the original uploader
+        return $this->profile->canEdit() || $video->user_id === auth()->id();
     }
 }

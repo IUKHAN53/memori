@@ -34,18 +34,36 @@ class Users extends Component
 
     public function removeInvitation($id)
     {
+        // Check if user has permission to manage invitations
+        if (!$this->profile->canEdit()) {
+            session()->flash('error', 'You do not have permission to remove invitations.');
+            return;
+        }
+        
         ProfileInvite::find($id)->delete();
         $this->dispatch('user-removed');
     }
 
     public function removeUser($id)
     {
+        // Check if user has permission to manage users
+        if (!$this->profile->canEdit()) {
+            session()->flash('error', 'You do not have permission to remove users.');
+            return;
+        }
+        
         $this->profile->profileUsers()->find($id)->delete();
         $this->dispatch('user-removed');
     }
 
     public function inviteUser()
     {
+        // Check if user has permission to invite users
+        if (!$this->profile->canEdit()) {
+            session()->flash('error', 'You do not have permission to invite users.');
+            return;
+        }
+        
         $this->validate([
             'email' => [
                 'required',

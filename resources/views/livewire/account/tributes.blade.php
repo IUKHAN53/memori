@@ -8,6 +8,16 @@
         @endif
     </div>
     <div>
+        @if (session()->has('error'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium">{{ session('error') }}</span>
+            </div>
+        @endif
+        @if (session()->has('success'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium">{{ session('success') }}</span>
+            </div>
+        @endif
         <div>
             @foreach($tributes as $tribute)
             <div class="rounded-20 p-5 border mb-4">
@@ -21,6 +31,15 @@
                             <p class="text-gray-500">{{$tribute->created_at->diffForHumans()}}</p>
                         </div>
                     </div>
+                    @if($this->canDeleteTribute($tribute))
+                    <div class="flex items-center">
+                        <button type="button" class="text-red-600 hover:text-red-800"
+                                wire:click="removeTribute({{$tribute->id}})"
+                                wire:confirm="Are you sure you want to remove this tribute?">
+                            <i data-lucide="trash"></i>
+                        </button>
+                    </div>
+                    @endif
                 </div>
                 <h5>{!! $tribute->title !!}</h5>
                 <p class="mt-3">
