@@ -47,6 +47,30 @@ class Photos extends Component
         return view('livewire.account.photos');
     }
 
+    /**
+     * Check if the current user can delete a specific photo (for use in blade template).
+     */
+    public function canDeletePhoto($photo)
+    {
+        $currentUserId = auth()->id();
+        
+        // Check if user is the one who uploaded the photo
+        if ($photo->user_id == $currentUserId) {
+            return true;
+        }
+        
+        // Check if user is the profile owner
+        $profileUser = $this->profile->profileUsers()
+            ->where('user_id', $currentUserId)
+            ->first();
+        
+        if ($profileUser && $profileUser->is_owner) {
+            return true;
+        }
+        
+        return false;
+    }
+
     public function updatedPhoto()
     {
         $this->validate([
@@ -66,6 +90,7 @@ class Photos extends Component
         $this->profile->photos()->create([
             'path' => $path,
             'caption' => $this->caption,
+            'user_id' => auth()->id(),
         ]);
 
         // Refresh photos so that the delete buttons show correctly
@@ -77,6 +102,12 @@ class Photos extends Component
     {
         $photo = $this->profile->photos()->find($photoId);
         if ($photo) {
+            // Check if user can delete this photo
+            if (!$this->canUserDeletePhoto($photo)) {
+                session()->flash('error', 'You are not authorized to delete this photo.');
+                return;
+            }
+            
             if (Storage::disk('public')->exists($photo->path)) {
                 Storage::disk('public')->delete($photo->path);
             }
@@ -100,8 +131,37 @@ class Photos extends Component
         $this->profile->photos()->create([
             'path' => $fileName,
             'caption' => $this->caption,
+            'user_id' => auth()->id(),
         ]);
         $this->photos = $this->profile->photos()->get();
         return redirect()->to(request()->header('Referer'));
+    }
+
+    /**
+     * Check if the current user can delete a photo.
+     * Users can delete photos if they are:
+     * 1. The profile owner (is_owner = true)
+     * 2. The user who uploaded the photo
+     * 3. Have edit permissions and are authorized by the profile owner
+     */
+    private function canUserDeletePhoto($photo)
+    {
+        $currentUserId = auth()->id();
+        
+        // Check if user is the one who uploaded the photo
+        if ($photo->user_id == $currentUserId) {
+            return true;
+        }
+        
+        // Check if user is the profile owner
+        $profileUser = $this->profile->profileUsers()
+            ->where('user_id', $currentUserId)
+            ->first();
+        
+        if ($profileUser && $profileUser->is_owner) {
+            return true;
+        }
+        
+        return false;
     }
 }

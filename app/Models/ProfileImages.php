@@ -14,6 +14,7 @@ class ProfileImages extends Model
 
     protected $fillable = [
         'profile_id',
+        'user_id',
         'path',
         'caption',
     ];
@@ -21,6 +22,11 @@ class ProfileImages extends Model
     public function profile()
     {
         return $this->belongsTo(Profile::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function getImageAttribute($value)

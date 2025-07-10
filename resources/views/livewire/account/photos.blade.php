@@ -12,6 +12,12 @@
         <span class="sr-only">Loading...</span>
     </div>
 
+    @if(session()->has('error'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
     @if($can_add)
         <div class="rounded flex justify-end medallion-profile-btn">
             <button type="button" x-data=""
@@ -29,11 +35,13 @@
                 <img style="max-width: 100%" src="{{ $picture->image }}" alt="">
                 <div class="photo-text-container">
                     <h5 style="margin-bottom: 1rem;">{{ $picture->caption }}</h5>
-                    <button class="text-red-400 hover:text-red-500 float-right"
-                            wire:click="removePhoto({{ $picture->id }})"
-                            wire:confirm="{{ __('all.are_you_sure_remove_photo') }}">
-                        <span wire:ignore><i data-lucide="trash" class="w-5 h-5"></i></span>
-                    </button>
+                    @if($this->canDeletePhoto($picture))
+                        <button class="text-red-400 hover:text-red-500 float-right"
+                                wire:click="removePhoto({{ $picture->id }})"
+                                wire:confirm="{{ __('all.are_you_sure_remove_photo') }}">
+                            <span wire:ignore><i data-lucide="trash" class="w-5 h-5"></i></span>
+                        </button>
+                    @endif
                 </div>
                 <div id="{{ $loop->index }}_imageDetailModal" modal-top
                      class="fixed flex flex-col hidden transition-all duration-300 ease-in-out left-2/4 z-drawer -translate-x-2/4 show">
